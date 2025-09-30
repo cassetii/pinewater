@@ -1474,4 +1474,742 @@
             allOrdersData.forEach(order => {
                 const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
                 const staffClass = order.createdBy === 'staff1' ? 'staff1' : 'staff2';
-                const staffName = order.createdBy === '
+                const staffName = order.createdBy === 'staff1' ? 'Staff 1' : 'Staff 2';
+                
+                html += `
+                    <tr>
+                        <td style="font-family: monospace; font-weight: bold;">${order.nomorPesanan}</td>
+                        <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
+                        <td>${order.namaPemesan}</td>
+                        <td>${order.noTelepon}</td>
+                        <td style="text-align: center; font-weight: bold;">${order.jumlahGallon}</td>
+                        <td style="font-size: 0.85rem;">${order.jenisPaket}</td>
+                        <td style="font-weight: bold; color: var(--primary-color);">Rp ${order.total.toLocaleString('id-ID')}</td>
+                        <td style="font-size: 0.85rem;">${date.toLocaleDateString('id-ID')}</td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+
+        function applyMonitoringFilter() {
+            const staffFilter = document.getElementById('filterStaff').value;
+            const startDate = document.getElementById('filterDateStart').value;
+            const endDate = document.getElementById('filterDateEnd').value;
+            
+            let filteredData = [...allOrdersData];
+            
+            if (staffFilter) {
+                filteredData = filteredData.filter(order => order.createdBy === staffFilter);
+            }
+            
+            if (startDate) {
+                const start = new Date(startDate);
+                filteredData = filteredData.filter(order => {
+                    const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                    return orderDate >= start;
+                });
+            }
+            
+            if (endDate) {
+                const end = new Date(endDate);
+                end.setHours(23, 59, 59, 999);
+                filteredData = filteredData.filter(order => {
+                    const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                    return orderDate <= end;
+                });
+            }
+            
+            const tbody = document.getElementById('monitoringTableBody');
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 2rem; color: #666;">
+                            Tidak ada data dengan filter yang dipilih
+                        </td>
+                    </tr>
+                `;
+            } else {
+                let html = '';
+                filteredData.forEach(order => {
+                    const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                    const staffClass = order.createdBy === 'staff1' ? 'staff1' : 'staff2';
+                    const staffName = order.createdBy === 'staff1' ? 'Staff 1' : 'Staff 2';
+                    
+                    html += `
+                        <tr>
+                            <td style="font-family: monospace; font-weight: bold;">${order.nomorPesanan}</td>
+                            <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
+                            <td>${order.namaPemesan}</td>
+                            <td>${order.noTelepon}</td>
+                            <td style="text-align: center; font-weight: bold;">${order.jumlahGallon}</td>
+                            <td style="font-size: 0.85rem;">${order.jenisPaket}</td>
+                            <td style="font-weight: bold; color: var(--primary-color);">Rp ${order.total.toLocaleString('id-ID')}</td>
+                            <td style="font-size: 0.85rem;">${date.toLocaleDateString('id-ID')}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+            
+            showAlert(`Filter diterapkan. Menampilkan ${filteredData.length} data.`, 'success');
+        }
+
+        function clearMonitoringFilter() {
+            document.getElementById('filterStaff').value = '';
+            document.getElementById('filterDateStart').value = '';
+            document.getElementById('filterDateEnd').value = '';
+            updateMonitoringTable();
+            showAlert('Filter direset.', 'info');
+        }
+
+        function exportMonitoringData() {
+            let csv = 'No Pesanan,Staff,Customer,Telepon,Gallon,Paket,Total,Tanggal\n';
+            
+            allOrdersData.forEach(order => {
+                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                const staffName = order.createdBy === 'staff1' ? 'Staff 1' : 'Staff 2';
+                csv += `"${order.nomorPesanan}","${staffName}","${order.namaPemesan}","${order.noTelepon}",${order.jumlahGallon},"${order.jenisPaket}",${order.total},"${date.toLocaleDateString('id-ID')}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pinewater-data-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showAlert('Data berhasil diexport!', 'success');
+        }
+
+        function updateComparisonSection() {
+            const today = new Date().toDateString();
+            const todayOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.toDateString() === today;
+            });
+            
+            const staff1TodayOrders = todayOrders.filter(o => o.createdBy === 'staff1');
+            const staff2TodayOrders = todayOrders.filter(o => o.createdBy === 'staff2');
+            
+            document.getElementById('compStaff1OrdersToday').textContent = staff1TodayOrders.length;
+            document.getElementById('compStaff1GallonsToday').textContent = staff1TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('compStaff1RevenueToday').textContent = staff1TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            document.getElementById('compStaff2OrdersToday').textContent = staff2TodayOrders.length;
+            document.getElementById('compStaff2GallonsToday').textContent = staff2TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('compStaff2RevenueToday').textContent = staff2TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const monthOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+            });
+            
+            const staff1MonthOrders = monthOrders.filter(o => o.createdBy === 'staff1');
+            const staff2MonthOrders = monthOrders.filter(o => o.createdBy === 'staff2');
+            
+            document.getElementById('compStaff1OrdersMonth').textContent = staff1MonthOrders.length;
+            document.getElementById('compStaff1GallonsMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('compStaff1RevenueMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            document.getElementById('compStaff2OrdersMonth').textContent = staff2MonthOrders.length;
+            document.getElementById('compStaff2GallonsMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('compStaff2RevenueMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            const analysisDiv = document.getElementById('performanceAnalysis');
+            
+            const staff1Total = staff1MonthOrders.reduce((sum, o) => sum + o.total, 0);
+            const staff2Total = staff2MonthOrders.reduce((sum, o) => sum + o.total, 0);
+            const totalRevenue = staff1Total + staff2Total;
+            
+            const staff1Percentage = totalRevenue > 0 ? ((staff1Total / totalRevenue) * 100).toFixed(1) : 0;
+            const staff2Percentage = totalRevenue > 0 ? ((staff2Total / totalRevenue) * 100).toFixed(1) : 0;
+            
+            const leader = staff1Total > staff2Total ? 'Staff 1' : (staff2Total > staff1Total ? 'Staff 2' : 'Seimbang');
+            
+            analysisDiv.innerHTML = `
+                <div style="padding: 1rem;">
+                    <h6 style="color: var(--dark-blue); font-weight: bold; margin-bottom: 1rem;">
+                        Analisis Performa Bulan Ini
+                    </h6>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <strong>Kontribusi Pendapatan:</strong><br>
+                        <div style="margin-top: 0.5rem;">
+                            Staff 1: <strong style="color: var(--staff1-color);">${staff1Percentage}%</strong><br>
+                            Staff 2: <strong style="color: var(--staff2-color);">${staff2Percentage}%</strong>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
+                        <strong>Rata-rata per Pesanan:</strong><br>
+                        <div style="margin-top: 0.5rem;">
+                            Staff 1: Rp ${staff1MonthOrders.length > 0 ? Math.round(staff1Total / staff1MonthOrders.length).toLocaleString('id-ID') : 0}<br>
+                            Staff 2: Rp ${staff2MonthOrders.length > 0 ? Math.round(staff2Total / staff2MonthOrders.length).toLocaleString('id-ID') : 0}
+                        </div>
+                    </div>
+                    
+                    <div style="background: ${leader === 'Staff 1' ? 'rgba(5, 150, 105, 0.1)' : leader === 'Staff 2' ? 'rgba(124, 58, 237, 0.1)' : '#f0f0f0'}; padding: 1rem; border-radius: 8px; border-left: 4px solid ${leader === 'Staff 1' ? 'var(--staff1-color)' : leader === 'Staff 2' ? 'var(--staff2-color)' : '#999'};">
+                        <i class="fas fa-trophy me-2" style="color: #fbbf24;"></i>
+                        <strong>Performa Terbaik:</strong> ${leader}
+                    </div>
+                </div>
+            `;
+        }
+
+        function generateAdminReport() {
+            const period = document.getElementById('reportPeriod').value;
+            const staffFilter = document.getElementById('reportStaff').value;
+            
+            let filteredOrders = [...allOrdersData];
+            
+            if (staffFilter !== 'all') {
+                filteredOrders = filteredOrders.filter(o => o.createdBy === staffFilter);
+            }
+            
+            const today = new Date();
+            if (period === 'today') {
+                filteredOrders = filteredOrders.filter(o => {
+                    const orderDate = o.timestamp instanceof Date ? o.timestamp : new Date(o.timestamp?.seconds * 1000);
+                    return orderDate.toDateString() === today.toDateString();
+                });
+            } else if (period === 'week') {
+                const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
+                filteredOrders = filteredOrders.filter(o => {
+                    const orderDate = o.timestamp instanceof Date ? o.timestamp : new Date(o.timestamp?.seconds * 1000);
+                    return orderDate >= weekAgo;
+                });
+            } else if (period === 'month') {
+                filteredOrders = filteredOrders.filter(o => {
+                    const orderDate = o.timestamp instanceof Date ? o.timestamp : new Date(o.timestamp?.seconds * 1000);
+                    return orderDate.getMonth() === today.getMonth() && orderDate.getFullYear() === today.getFullYear();
+                });
+            }
+            
+            const totalOrders = filteredOrders.length;
+            const totalGallons = filteredOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            const totalRevenue = filteredOrders.reduce((sum, o) => sum + o.total, 0);
+            
+            const packageStats = {};
+            filteredOrders.forEach(order => {
+                const pkg = order.jenisPaket;
+                if (!packageStats[pkg]) {
+                    packageStats[pkg] = { count: 0, gallons: 0, revenue: 0 };
+                }
+                packageStats[pkg].count++;
+                packageStats[pkg].gallons += order.jumlahGallon;
+                packageStats[pkg].revenue += order.total;
+            });
+            
+            const reportDiv = document.getElementById('reportResults');
+            
+            let html = `
+                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
+                    <div style="text-align: center; margin-bottom: 2rem; border-bottom: 2px solid #eee; padding-bottom: 1rem;">
+                        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">
+                            Laporan Pinewater
+                        </h4>
+                        <p style="color: #666;">
+                            Periode: ${period === 'today' ? 'Hari Ini' : period === 'week' ? 'Minggu Ini' : period === 'month' ? 'Bulan Ini' : 'Semua Data'}<br>
+                            Staff: ${staffFilter === 'all' ? 'Semua Staff' : staffFilter === 'staff1' ? 'Staff 1' : 'Staff 2'}
+                        </p>
+                    </div>
+
+                    <div class="stats-grid" style="margin-bottom: 2rem;">
+                        <div class="stat-card primary">
+                            <div class="stat-number">${totalOrders}</div>
+                            <div class="stat-label">Total Pesanan</div>
+                        </div>
+                        <div class="stat-card accent">
+                            <div class="stat-number">${totalGallons}</div>
+                            <div class="stat-label">Total Gallon</div>
+                        </div>
+                        <div class="stat-card dark">
+                            <div class="stat-number">Rp ${totalRevenue.toLocaleString('id-ID')}</div>
+                            <div class="stat-label">Total Pendapatan</div>
+                        </div>
+                    </div>
+
+                    <div style="margin-bottom: 2rem;">
+                        <h5 style="color: var(--primary-color); margin-bottom: 1rem;">
+                            Detail Per Paket
+                        </h5>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Paket</th>
+                                    <th>Jumlah</th>
+                                    <th>Total Gallon</th>
+                                    <th>Pendapatan</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+            `;
+            
+            Object.entries(packageStats).forEach(([pkg, stats]) => {
+                html += `
+                    <tr>
+                        <td><strong>${pkg}</strong></td>
+                        <td>${stats.count}</td>
+                        <td>${stats.gallons}</td>
+                        <td style="font-weight: bold; color: var(--primary-color);">Rp ${stats.revenue.toLocaleString('id-ID')}</td>
+                    </tr>
+                `;
+            });
+            
+            html += `
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div style="text-align: center; color: #666; font-size: 0.9rem; border-top: 1px solid #eee; padding-top: 1rem;">
+                        Dibuat pada: ${new Date().toLocaleString('id-ID')}
+                    </div>
+                </div>
+            `;
+            
+            reportDiv.innerHTML = html;
+            showAlert('Laporan berhasil dibuat!', 'success');
+        }
+
+        function downloadAdminReport() {
+            const reportContent = document.getElementById('reportResults').innerHTML;
+            if (reportContent.includes('Pilih periode')) {
+                showAlert('Generate report terlebih dahulu!', 'danger');
+                return;
+            }
+            
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Laporan Pinewater</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 2rem; }
+                            table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
+                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+                            th { background-color: #f2f2f2; }
+                            .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
+                            .stat-card { border: 1px solid #ddd; padding: 1rem; text-align: center; }
+                        </style>
+                    </head>
+                    <body>
+                        ${reportContent}
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+            
+            showAlert('Dialog print dibuka!', 'info');
+        }
+
+        function calculateTotal() {
+            const packageType = document.getElementById('packageType');
+            const gallonCount = parseInt(document.getElementById('gallonCount').value) || 0;
+            const totalPaymentField = document.getElementById('totalPayment');
+            
+            if (packageType.value && gallonCount > 0) {
+                const price = parseInt(packageType.selectedOptions[0].dataset.price) || 0;
+                const total = price * gallonCount;
+                totalPaymentField.value = 'Rp ' + total.toLocaleString('id-ID');
+            } else {
+                totalPaymentField.value = '';
+            }
+        }
+
+        function generateOrderNumber() {
+            const today = new Date();
+            const dateStr = today.toISOString().slice(0, 10).replace(/-/g, '');
+            const timeStr = today.toTimeString().slice(0, 8).replace(/:/g, '');
+            return `PW-${dateStr}-${timeStr}-${String(orderCounter++).padStart(3, '0')}`;
+        }
+
+        function calculateTotalAmount() {
+            const packageType = document.getElementById('packageType').value;
+            const gallonCount = parseInt(document.getElementById('gallonCount').value) || 0;
+            const price = packageType === 'small' ? 5000 : 4500;
+            return price * gallonCount;
+        }
+
+        async function handleOrder(event) {
+            event.preventDefault();
+            
+            const packageType = document.getElementById('packageType').value;
+            const gallonCount = parseInt(document.getElementById('gallonCount').value);
+            
+            const orderData = {
+                nomorPesanan: generateOrderNumber(),
+                namaPemesan: document.getElementById('customerName').value,
+                noTelepon: document.getElementById('customerPhone').value,
+                jenisPaket: packageType === 'small' ? '1-50 Gallon' : '>50 Gallon',
+                jumlahGallon: gallonCount,
+                hargaSatuan: packageType === 'small' ? 5000 : 4500,
+                tanggalPesanan: document.getElementById('orderDate').value,
+                alamatPengiriman: document.getElementById('deliveryAddress').value,
+                catatan: document.getElementById('orderNotes').value,
+                petugasInput: currentUser.fullName,
+                createdBy: currentUser.username,
+                timestamp: window.serverTimestamp(),
+                total: calculateTotalAmount(),
+                status: 'Selesai'
+            };
+
+            try {
+                await window.addDoc(window.collection(window.db, 'pesanan'), orderData);
+                
+                orderData.timestamp = new Date();
+                myOrdersData.unshift(orderData);
+                
+                localStorage.setItem('pinewater_orders_' + currentUser.username, JSON.stringify(myOrdersData));
+                
+                showAlert('Pesanan berhasil disimpan! Nomor: ' + orderData.nomorPesanan, 'success');
+                
+                resetOrderForm();
+                updateStaffStats();
+                
+                if (confirm('Apakah Anda ingin mencetak nota sekarang?')) {
+                    printOrder(orderData);
+                }
+                
+            } catch (error) {
+                console.error('Error saving order:', error);
+                showAlert('Gagal menyimpan pesanan: ' + error.message, 'danger');
+            }
+        }
+
+        function resetOrderForm() {
+            document.getElementById('orderForm').reset();
+            document.getElementById('orderDate').valueAsDate = new Date();
+            document.getElementById('totalPayment').value = '';
+        }
+
+        function printOrder(orderData) {
+            const printWindow = window.open('', '_blank');
+            printWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Nota Pesanan Pinewater</title>
+                        <style>
+                            body { font-family: Arial, sans-serif; margin: 20px; text-align: center; }
+                            .nota { border: 2px solid #0891b2; padding: 20px; max-width: 400px; margin: 0 auto; border-radius: 10px; }
+                            .header { color: #0891b2; font-weight: bold; font-size: 20px; margin-bottom: 20px; }
+                            .info { text-align: left; margin: 10px 0; line-height: 1.8; }
+                            .total { font-size: 18px; font-weight: bold; color: #0891b2; margin-top: 20px; padding-top: 15px; border-top: 2px dashed #0891b2; }
+                            .footer { margin-top: 20px; font-size: 12px; color: #666; border-top: 1px solid #ddd; padding-top: 15px; }
+                        </style>
+                    </head>
+                    <body>
+                        <div class="nota">
+                            <div class="header">PINEWATER</div>
+                            <div style="font-size: 14px; color: #666; margin-bottom: 20px;">Gallon Air Berkualitas</div>
+                            <div class="info"><strong>No. Pesanan:</strong> ${orderData.nomorPesanan}</div>
+                            <div class="info"><strong>Nama Pemesan:</strong> ${orderData.namaPemesan}</div>
+                            <div class="info"><strong>No. Telepon:</strong> ${orderData.noTelepon}</div>
+                            <div class="info"><strong>Paket:</strong> ${orderData.jenisPaket}</div>
+                            <div class="info"><strong>Jumlah Gallon:</strong> ${orderData.jumlahGallon}</div>
+                            <div class="info"><strong>Harga/Gallon:</strong> Rp ${orderData.hargaSatuan.toLocaleString('id-ID')}</div>
+                            <div class="info"><strong>Tanggal:</strong> ${orderData.tanggalPesanan}</div>
+                            ${orderData.alamatPengiriman ? `<div class="info"><strong>Alamat:</strong> ${orderData.alamatPengiriman}</div>` : ''}
+                            <div class="info"><strong>Petugas:</strong> ${orderData.petugasInput}</div>
+                            <div class="total">TOTAL: Rp ${orderData.total.toLocaleString('id-ID')}</div>
+                            <div class="footer">
+                                Terima kasih atas kepercayaan Anda!<br>
+                                Dicetak pada: ${new Date().toLocaleString('id-ID')}
+                            </div>
+                        </div>
+                    </body>
+                </html>
+            `);
+            printWindow.document.close();
+            printWindow.print();
+        }
+
+        function printLastOrder() {
+            if (myOrdersData.length > 0) {
+                printOrder(myOrdersData[0]);
+            } else {
+                showAlert('Belum ada pesanan yang dibuat', 'warning');
+            }
+        }
+
+        function showTodayStats() {
+            const today = new Date().toDateString();
+            const todayOrders = myOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.toDateString() === today;
+            });
+            
+            const todayTotal = todayOrders.length;
+            const todayGallons = todayOrders.reduce((sum, order) => sum + order.jumlahGallon, 0);
+            const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
+            
+            alert(`Ringkasan Hari Ini:\n\nTotal Pesanan: ${todayTotal}\nTotal Gallon: ${todayGallons}\nTotal Pendapatan: Rp ${todayRevenue.toLocaleString('id-ID')}`);
+        }
+
+        function loadStaffHistory() {
+            const historyList = document.getElementById('orderHistoryList');
+            
+            if (myOrdersData.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Belum ada riwayat pesanan</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            myOrdersData.forEach(order => {
+                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                html += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-number">${order.nomorPesanan}</div>
+                            <div class="order-status">${order.status || 'Selesai'}</div>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                            <strong>${order.namaPemesan}</strong> - ${order.noTelepon}<br>
+                            ${order.jumlahGallon} gallon (${order.jenisPaket}) - Rp ${order.total.toLocaleString('id-ID')}<br>
+                            <small>${date.toLocaleDateString('id-ID')} ${date.toLocaleTimeString('id-ID')}</small>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+        }
+
+        function refreshHistory() {
+            loadMyOrdersData().then(() => {
+                loadStaffHistory();
+                showAlert('Riwayat berhasil diperbarui', 'success');
+            });
+        }
+
+        function filterHistory() {
+            const filterDate = document.getElementById('filterDate').value;
+            if (!filterDate) {
+                loadStaffHistory();
+                return;
+            }
+            
+            const selectedDate = new Date(filterDate).toDateString();
+            const filteredOrders = myOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.toDateString() === selectedDate;
+            });
+            
+            const historyList = document.getElementById('orderHistoryList');
+            
+            if (filteredOrders.length === 0) {
+                historyList.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        <i class="fas fa-calendar-times" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Tidak ada pesanan untuk tanggal ${new Date(filterDate).toLocaleDateString('id-ID')}</p>
+                    </div>
+                `;
+                return;
+            }
+
+            let html = '';
+            filteredOrders.forEach(order => {
+                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                html += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div class="order-number">${order.nomorPesanan}</div>
+                            <div class="order-status">${order.status || 'Selesai'}</div>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                            <strong>${order.namaPemesan}</strong> - ${order.noTelepon}<br>
+                            ${order.jumlahGallon} gallon (${order.jenisPaket}) - Rp ${order.total.toLocaleString('id-ID')}<br>
+                            <small>${date.toLocaleDateString('id-ID')} ${date.toLocaleTimeString('id-ID')}</small>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            historyList.innerHTML = html;
+        }
+
+        function updateStaffStats() {
+            const today = new Date().toDateString();
+            const todayOrders = myOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.toDateString() === today;
+            });
+            
+            const todayTotal = todayOrders.length;
+            const todayGallons = todayOrders.reduce((sum, order) => sum + order.jumlahGallon, 0);
+            const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
+            
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const monthOrders = myOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+            });
+            
+            const monthTotal = monthOrders.length;
+            
+            if (document.getElementById('myTodayOrders')) {
+                document.getElementById('myTodayOrders').textContent = todayTotal;
+                document.getElementById('myTodayGallons').textContent = todayGallons;
+                document.getElementById('myTodayRevenue').textContent = 'Rp ' + todayRevenue.toLocaleString('id-ID');
+                document.getElementById('myMonthOrders').textContent = monthTotal;
+            }
+        }
+
+        function updateMyMonthlySummary() {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const monthOrders = myOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+            });
+            
+            const summary = {
+                'small': { count: 0, gallons: 0, revenue: 0 },
+                'large': { count: 0, gallons: 0, revenue: 0 }
+            };
+            
+            monthOrders.forEach(order => {
+                const packageKey = order.jenisPaket.includes('1-50') ? 'small' : 'large';
+                summary[packageKey].count++;
+                summary[packageKey].gallons += order.jumlahGallon;
+                summary[packageKey].revenue += order.total;
+            });
+            
+            const tbody = document.getElementById('myMonthlySummaryBody');
+            
+            if (monthOrders.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" style="text-align: center; padding: 2rem; color: #666;">
+                            Belum ada data bulan ini
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            html += `
+                <tr>
+                    <td><strong>1-50 Gallon</strong></td>
+                    <td>${summary.small.count}</td>
+                    <td>${summary.small.gallons}</td>
+                    <td style="font-weight: bold; color: var(--primary-color);">Rp ${summary.small.revenue.toLocaleString('id-ID')}</td>
+                </tr>
+                <tr>
+                    <td><strong>&gt;50 Gallon</strong></td>
+                    <td>${summary.large.count}</td>
+                    <td>${summary.large.gallons}</td>
+                    <td style="font-weight: bold; color: var(--primary-color);">Rp ${summary.large.revenue.toLocaleString('id-ID')}</td>
+                </tr>
+                <tr style="background: #f8f9fa; font-weight: bold;">
+                    <td>TOTAL</td>
+                    <td>${summary.small.count + summary.large.count}</td>
+                    <td>${summary.small.gallons + summary.large.gallons}</td>
+                    <td style="color: var(--primary-color);">Rp ${(summary.small.revenue + summary.large.revenue).toLocaleString('id-ID')}</td>
+                </tr>
+            `;
+            
+            tbody.innerHTML = html;
+        }
+
+        function showAlert(message, type = 'success') {
+            document.querySelectorAll('.alert').forEach(el => {
+                if (!el.closest('#loginAlert')) el.remove();
+            });
+            
+            const alertDiv = document.createElement('div');
+            alertDiv.className = `alert alert-${type}`;
+            alertDiv.style.cssText = `
+                position: fixed;
+                top: 80px;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 1050;
+                min-width: 300px;
+                max-width: 90%;
+                border-radius: 12px;
+                border: none;
+                animation: slideDown 0.5s ease-out;
+                padding: 1rem 1.5rem;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            `;
+            
+            let iconClass = 'check-circle';
+            let bgColor = '#d1fae5';
+            let textColor = '#065f46';
+            
+            if (type === 'danger') {
+                iconClass = 'exclamation-triangle';
+                bgColor = '#fee2e2';
+                textColor = '#991b1b';
+            } else if (type === 'warning') {
+                iconClass = 'exclamation-circle';
+                bgColor = '#fef3c7';
+                textColor = '#92400e';
+            } else if (type === 'info') {
+                iconClass = 'info-circle';
+                bgColor = '#dbeafe';
+                textColor = '#1e40af';
+            }
+            
+            alertDiv.style.backgroundColor = bgColor;
+            alertDiv.style.color = textColor;
+            
+            alertDiv.innerHTML = `
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span><i class="fas fa-${iconClass} me-2"></i>${message}</span>
+                    <button type="button" style="background: none; border: none; color: ${textColor}; cursor: pointer; padding: 0; margin-left: 1rem;" onclick="this.parentElement.parentElement.remove()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(alertDiv);
+            
+            setTimeout(() => {
+                if (alertDiv.parentNode) alertDiv.remove();
+            }, 5000);
+        }
+
+        function checkAuth() {
+            const savedUser = localStorage.getItem('pinewater_current_user');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+                console.log('Resuming session for:', currentUser.username);
+                if (currentUser.role === 'admin') {
+                    showAdminApp();
+                } else {
+                    showStaffApp();
+                }
+            }
+        }
+
+        window.addEventListener('load', function() {
+            console.log('Pinewater Management System loaded');
+            checkAuth();
+        });
+
+        window.addEventListener('error', function(e) {
+            console.error('Global error:', e.error);
+        });
+
+        console.log('Pinewater JavaScript initialized');
+        console.log('Default users:');
+        console.log('- admin/pinewater123 (Admin)');
+        console.log('- staff1/staff123 (Staff 1)');
+        console.log('- staff2/staff123 (Staff 2)');
+    </script>
+</body>
+</html>
