@@ -1,0 +1,1477 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pinewater - Sistem Manajemen Gallon Air</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #0891b2;
+            --secondary-color: #06b6d4;
+            --accent-color: #22d3ee;
+            --dark-blue: #164e63;
+            --light-bg: #ecfeff;
+            --admin-color: #0c4a6e;
+            --staff1-color: #059669;
+            --staff2-color: #7c3aed;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, var(--light-bg) 0%, #ffffff 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        .water-background {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .water-background::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%230891b2' fill-opacity='0.05'%3E%3Cpath d='M40 10c-8 0-15 8-15 18s7 18 15 18 15-8 15-18-7-18-15-18z'/%3E%3C/g%3E%3C/svg%3E") repeat;
+            z-index: -1;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            position: relative;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 420px;
+            animation: slideIn 0.8s ease-out;
+            position: relative;
+            z-index: 1;
+            border-top: 5px solid var(--accent-color);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-logo {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+            color: white;
+            font-size: 2.5rem;
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.3);
+        }
+
+        .login-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .login-subtitle {
+            color: var(--dark-blue);
+            font-size: 0.95rem;
+            font-weight: 500;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-input-container {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-input {
+            width: 100%;
+            padding: 1rem 1rem 1rem 3rem;
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .login-input:focus {
+            border-color: var(--secondary-color);
+            box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
+            outline: none;
+        }
+
+        .login-input-icon {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--primary-color);
+            font-size: 1.1rem;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--dark-blue);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .login-btn {
+            width: 100%;
+            padding: 1.1rem;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
+        }
+
+        .login-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4);
+        }
+
+        .mobile-header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .admin-header {
+            background: linear-gradient(135deg, var(--admin-color) 0%, var(--primary-color) 100%);
+        }
+
+        .mobile-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .mobile-header h1 {
+            font-size: 1.25rem;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .logout-btn {
+            background: rgba(255,255,255,0.2);
+            border: 1px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255,255,255,0.3);
+        }
+
+        .mobile-nav {
+            display: flex;
+            background: white;
+            margin: 0.5rem;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .mobile-nav-item {
+            flex: 1;
+            padding: 1rem;
+            text-align: center;
+            background: #f8f9fa;
+            color: var(--primary-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
+            border: none;
+        }
+
+        .mobile-nav-item.active {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .mobile-nav-item:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        .mobile-card {
+            background: white;
+            margin: 0.5rem;
+            border-radius: 15px;
+            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.15);
+            overflow: hidden;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .mobile-card-header {
+            background: linear-gradient(135deg, var(--secondary-color) 0%, var(--primary-color) 100%);
+            color: white;
+            padding: 1rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .admin-card-header {
+            background: linear-gradient(135deg, var(--admin-color) 0%, var(--primary-color) 100%);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            border-left: 4px solid var(--secondary-color);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-card.primary {
+            border-left-color: var(--primary-color);
+        }
+
+        .stat-card.accent {
+            border-left-color: var(--accent-color);
+        }
+
+        .stat-card.dark {
+            border-left-color: var(--dark-blue);
+        }
+
+        .stat-card.staff1 {
+            border-left-color: var(--staff1-color);
+        }
+
+        .stat-card.staff2 {
+            border-left-color: var(--staff2-color);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+
+        .staff-card {
+            background: white;
+            margin: 0.5rem;
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--staff1-color);
+        }
+
+        .staff-card.staff2 {
+            border-left-color: var(--staff2-color);
+        }
+
+        .staff-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #f0f0f0;
+        }
+
+        .staff-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+        }
+
+        .staff-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .staff-status.active {
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .staff-status.offline {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        .staff-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .staff-stat-item {
+            text-align: center;
+            padding: 0.75rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+        }
+
+        .staff-stat-number {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .staff-stat-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.25rem;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            padding: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--primary-color);
+        }
+
+        .form-input,
+        .form-select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+            box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
+        }
+
+        .form-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+        }
+
+        .form-btn.primary {
+            background: var(--secondary-color);
+            color: white;
+        }
+
+        .form-btn.secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .form-btn.export {
+            background: var(--accent-color);
+            color: white;
+        }
+
+        .form-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .order-item {
+            background: white;
+            margin: 0.5rem;
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-left: 4px solid var(--secondary-color);
+        }
+
+        .order-item.staff1-order {
+            border-left-color: var(--staff1-color);
+        }
+
+        .order-item.staff2-order {
+            border-left-color: var(--staff2-color);
+        }
+
+        .order-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-number {
+            font-weight: bold;
+            color: var(--primary-color);
+            font-family: monospace;
+        }
+
+        .order-status {
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: #d1fae5;
+            color: #065f46;
+        }
+
+        .staff-badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 15px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            margin-left: 0.5rem;
+        }
+
+        .staff-badge.staff1 {
+            background: rgba(5, 150, 105, 0.2);
+            color: var(--staff1-color);
+        }
+
+        .staff-badge.staff2 {
+            background: rgba(124, 58, 237, 0.2);
+            color: var(--staff2-color);
+        }
+
+        .content-section {
+            display: none;
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+            font-size: 0.9rem;
+        }
+
+        .data-table th {
+            background-color: #f8f9fa;
+            font-weight: 600;
+            color: var(--primary-color);
+            position: sticky;
+            top: 0;
+        }
+
+        .data-table tr:hover {
+            background-color: #f8f9fa;
+        }
+
+        .filter-section {
+            background: white;
+            padding: 1rem;
+            margin: 0.5rem;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .filter-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .comparison-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 0.5rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .comparison-header {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--dark-blue);
+            margin-bottom: 1.5rem;
+        }
+
+        .vs-container {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .vs-badge {
+            background: var(--primary-color);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        @media (max-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .staff-stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .login-card {
+                margin: 0.5rem;
+                padding: 2rem;
+            }
+
+            .vs-container {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .vs-badge {
+                margin: 0 auto;
+            }
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+            to { opacity: 1; transform: translateX(-50%) translateY(0); }
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+        }
+
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid var(--secondary-color);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login Page -->
+    <div id="loginPage" class="page-section active">
+        <div class="login-container water-background">
+            <div class="login-card">
+                <div class="login-logo">
+                    <i class="fas fa-tint"></i>
+                </div>
+                <h2 class="login-title">Pinewater</h2>
+                <p class="login-subtitle">Sistem Manajemen Gallon Air</p>
+
+                <form id="loginForm" onsubmit="handleLogin(event)">
+                    <div class="login-input-container">
+                        <input type="text" class="login-input" id="username" placeholder="Username" required>
+                        <div class="login-input-icon">
+                            <i class="fas fa-user"></i>
+                        </div>
+                    </div>
+
+                    <div class="login-input-container">
+                        <input type="password" class="login-input" id="password" placeholder="Password" required>
+                        <div class="login-input-icon">
+                            <i class="fas fa-lock"></i>
+                        </div>
+                        <div class="password-toggle" onclick="togglePassword()">
+                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="login-btn">
+                        <i class="fas fa-sign-in-alt me-2"></i>Masuk
+                    </button>
+                </form>
+
+                <div id="loginAlert"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin App -->
+    <div id="adminApp" class="page-section">
+        <div class="mobile-header admin-header">
+            <div class="mobile-header-content">
+                <h1>
+                    <i class="fas fa-user-shield me-2"></i>
+                    Admin Panel
+                </h1>
+                <div class="user-info">
+                    <span id="adminUser">Admin</span>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-nav">
+            <button class="mobile-nav-item active" onclick="showAdminSection('dashboard')">
+                <i class="fas fa-chart-dashboard me-1"></i>Dashboard
+            </button>
+            <button class="mobile-nav-item" onclick="showAdminSection('monitoring')">
+                <i class="fas fa-monitor-waveform me-1"></i>Monitoring
+            </button>
+            <button class="mobile-nav-item" onclick="showAdminSection('comparison')">
+                <i class="fas fa-balance-scale me-1"></i>Perbandingan
+            </button>
+            <button class="mobile-nav-item" onclick="showAdminSection('reports')">
+                <i class="fas fa-file-chart me-1"></i>Laporan
+            </button>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboardSection" class="content-section active">
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-chart-bar me-2"></i>Statistik Global Hari Ini
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="stat-number" id="totalOrdersToday">0</div>
+                        <div class="stat-label">Total Pesanan</div>
+                    </div>
+                    <div class="stat-card accent">
+                        <div class="stat-icon"><i class="fas fa-box"></i></div>
+                        <div class="stat-number" id="totalGallonsToday">0</div>
+                        <div class="stat-label">Total Gallon</div>
+                    </div>
+                    <div class="stat-card dark">
+                        <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="stat-number" id="totalRevenueToday">Rp 0</div>
+                        <div class="stat-label">Total Pendapatan</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+                        <div class="stat-number" id="totalOrdersMonth">0</div>
+                        <div class="stat-label">Total Bulan Ini</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Staff Performance Cards -->
+            <div class="staff-card">
+                <div class="staff-header">
+                    <div class="staff-name">
+                        <i class="fas fa-user-circle me-2"></i>Staff 1
+                    </div>
+                    <div class="staff-status active" id="staff1Status">Aktif</div>
+                </div>
+                <div class="staff-stats-grid">
+                    <div class="staff-stat-item">
+                        <div class="staff-stat-number" id="staff1OrdersToday">0</div>
+                        <div class="staff-stat-label">Pesanan Hari Ini</div>
+                    </div>
+                    <div class="staff-stat-item">
+                        <div class="staff-stat-number" id="staff1GallonsToday">0</div>
+                        <div class="staff-stat-label">Gallon Terjual</div>
+                    </div>
+                    <div class="staff-stat-item">
+                        <div class="staff-stat-number" id="staff1RevenueToday">Rp 0</div>
+                        <div class="staff-stat-label">Pendapatan</div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
+                    <strong>Bulan Ini:</strong>
+                    <span id="staff1OrdersMonth">0</span> pesanan •
+                    <span id="staff1GallonsMonth">0</span> gallon •
+                    Rp <span id="staff1RevenueMonth">0</span>
+                </div>
+            </div>
+
+            <div class="staff-card staff2">
+                <div class="staff-header">
+                    <div class="staff-name">
+                        <i class="fas fa-user-circle me-2"></i>Staff 2
+                    </div>
+                    <div class="staff-status active" id="staff2Status">Aktif</div>
+                </div>
+                <div class="staff-stats-grid">
+                    <div class="staff-stat-item">
+                        <div class="staff-stat-number" id="staff2OrdersToday">0</div>
+                        <div class="staff-stat-label">Pesanan Hari Ini</div>
+                    </div>
+                    <div class="staff-stat-item">
+                        <div class="staff-stat-number" id="staff2GallonsToday">0</div>
+                        <div class="staff-stat-label">Gallon Terjual</div>
+                    </div>
+                    <div class="staff-stat-item">
+                        <div class="staff-stat-number" id="staff2RevenueToday">Rp 0</div>
+                        <div class="staff-stat-label">Pendapatan</div>
+                    </div>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
+                    <strong>Bulan Ini:</strong>
+                    <span id="staff2OrdersMonth">0</span> pesanan •
+                    <span id="staff2GallonsMonth">0</span> gallon •
+                    Rp <span id="staff2RevenueMonth">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monitoring Section -->
+        <div id="monitoringSection" class="content-section">
+            <div class="filter-section">
+                <h6 style="margin-bottom: 1rem; color: var(--primary-color); font-weight: 600;">
+                    <i class="fas fa-filter me-2"></i>Filter Data Pesanan
+                </h6>
+                <div class="filter-row">
+                    <div class="form-group">
+                        <label class="form-label">Filter Staff</label>
+                        <select class="form-select" id="filterStaff" onchange="applyMonitoringFilter()">
+                            <option value="">Semua Staff</option>
+                            <option value="staff1">Staff 1</option>
+                            <option value="staff2">Staff 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-input" id="filterDateStart">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Selesai</label>
+                        <input type="date" class="form-input" id="filterDateEnd">
+                    </div>
+                    <div class="form-group">
+                        <button class="form-btn primary" onclick="applyMonitoringFilter()">
+                            <i class="fas fa-search me-1"></i>Filter
+                        </button>
+                        <button class="form-btn secondary" onclick="clearMonitoringFilter()">
+                            <i class="fas fa-times me-1"></i>Reset
+                        </button>
+                        <button class="form-btn export" onclick="exportMonitoringData()">
+                            <i class="fas fa-download me-1"></i>Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-table me-2"></i>Data Pesanan Lengkap
+                </div>
+                <div style="padding: 1rem; overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>No. Pesanan</th>
+                                <th>Staff</th>
+                                <th>Customer</th>
+                                <th>Telepon</th>
+                                <th>Gallon</th>
+                                <th>Paket</th>
+                                <th>Total</th>
+                                <th>Tanggal</th>
+                            </tr>
+                        </thead>
+                        <tbody id="monitoringTableBody">
+                            <tr>
+                                <td colspan="8" style="text-align: center; padding: 2rem; color: #666;">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>Memuat data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison Section -->
+        <div id="comparisonSection" class="content-section">
+            <div class="comparison-card">
+                <div class="comparison-header">
+                    <i class="fas fa-balance-scale me-2"></i>Perbandingan Performa Staff
+                </div>
+                
+                <div class="vs-container">
+                    <div class="stat-card staff1">
+                        <div style="font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; color: var(--staff1-color);">
+                            <i class="fas fa-user-circle me-2"></i>Staff 1
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <strong>Hari Ini:</strong><br>
+                            <span id="compStaff1OrdersToday">0</span> pesanan<br>
+                            <span id="compStaff1GallonsToday">0</span> gallon<br>
+                            Rp <span id="compStaff1RevenueToday">0</span>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #f0f0f0;">
+                            <strong>Bulan Ini:</strong><br>
+                            <span id="compStaff1OrdersMonth">0</span> pesanan<br>
+                            <span id="compStaff1GallonsMonth">0</span> gallon<br>
+                            Rp <span id="compStaff1RevenueMonth">0</span>
+                        </div>
+                    </div>
+
+                    <div class="vs-badge">VS</div>
+
+                    <div class="stat-card staff2">
+                        <div style="font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; color: var(--staff2-color);">
+                            <i class="fas fa-user-circle me-2"></i>Staff 2
+                        </div>
+                        <div style="margin: 0.5rem 0;">
+                            <strong>Hari Ini:</strong><br>
+                            <span id="compStaff2OrdersToday">0</span> pesanan<br>
+                            <span id="compStaff2GallonsToday">0</span> gallon<br>
+                            Rp <span id="compStaff2RevenueToday">0</span>
+                        </div>
+                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #f0f0f0;">
+                            <strong>Bulan Ini:</strong><br>
+                            <span id="compStaff2OrdersMonth">0</span> pesanan<br>
+                            <span id="compStaff2GallonsMonth">0</span> gallon<br>
+                            Rp <span id="compStaff2RevenueMonth">0</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-trophy me-2"></i>Analisis Performa
+                </div>
+                <div style="padding: 1rem;">
+                    <div id="performanceAnalysis">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                            <p>Menganalisis data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reports Section -->
+        <div id="reportsSection" class="content-section">
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-file-chart me-2"></i>Laporan Detail
+                </div>
+                <div style="padding: 1rem;">
+                    <div class="form-grid" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">Periode</label>
+                            <select class="form-select" id="reportPeriod">
+                                <option value="today">Hari Ini</option>
+                                <option value="week">Minggu Ini</option>
+                                <option value="month">Bulan Ini</option>
+                                <option value="all">Semua Data</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Staff</label>
+                            <select class="form-select" id="reportStaff">
+                                <option value="all">Semua Staff</option>
+                                <option value="staff1">Staff 1</option>
+                                <option value="staff2">Staff 2</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button class="form-btn primary" onclick="generateAdminReport()">
+                                <i class="fas fa-chart-bar me-1"></i>Generate
+                            </button>
+                            <button class="form-btn export" onclick="downloadAdminReport()">
+                                <i class="fas fa-download me-1"></i>Download
+                            </button>
+                        </div>
+                    </div>
+                    <div id="reportResults">
+                        <div style="text-align: center; padding: 3rem; color: #666;">
+                            <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                            <h5>Pilih periode dan klik Generate</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Staff App -->
+    <div id="staffApp" class="page-section">
+        <div class="mobile-header">
+            <div class="mobile-header-content">
+                <h1>
+                    <i class="fas fa-tint me-2"></i>
+                    Pinewater
+                </h1>
+                <div class="user-info">
+                    <span id="staffUser">Staff</span>
+                    <button class="logout-btn" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mobile-nav">
+            <button class="mobile-nav-item active" onclick="showStaffSection('order')">
+                <i class="fas fa-plus-circle me-1"></i>Pesanan Baru
+            </button>
+            <button class="mobile-nav-item" onclick="showStaffSection('history')">
+                <i class="fas fa-history me-1"></i>Riwayat
+            </button>
+            <button class="mobile-nav-item" onclick="showStaffSection('stats')">
+                <i class="fas fa-chart-bar me-1"></i>Statistik
+            </button>
+        </div>
+
+        <!-- Order Section -->
+        <div id="orderSection" class="content-section active">
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-shopping-cart me-2"></i>Form Pesanan Gallon
+                </div>
+                <form id="orderForm" onsubmit="handleOrder(event)">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Nama Pemesan</label>
+                            <input type="text" class="form-input" id="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">No. Telepon</label>
+                            <input type="tel" class="form-input" id="customerPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Jenis Paket</label>
+                            <select class="form-select" id="packageType" required onchange="calculateTotal()">
+                                <option value="">Pilih Paket</option>
+                                <option value="small" data-price="5000">1-50 Gallon - Rp 5.000/gallon</option>
+                                <option value="large" data-price="4500">&gt;50 Gallon - Rp 4.500/gallon</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Jumlah Gallon</label>
+                            <input type="number" class="form-input" id="gallonCount" min="1" required onchange="calculateTotal()">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Tanggal Pesanan</label>
+                            <input type="date" class="form-input" id="orderDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Total Pembayaran</label>
+                            <input type="text" class="form-input" id="totalPayment" readonly style="background-color: #f8f9fa; font-weight: bold; color: var(--primary-color);">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Alamat Pengiriman</label>
+                            <textarea class="form-input" id="deliveryAddress" rows="2"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Catatan (Opsional)</label>
+                            <textarea class="form-input" id="orderNotes" rows="2"></textarea>
+                        </div>
+                    </div>
+                    <div style="padding: 0 1rem 1rem;">
+                        <button type="submit" class="form-btn primary">
+                            <i class="fas fa-save me-1"></i>Simpan Pesanan
+                        </button>
+                        <button type="button" class="form-btn secondary" onclick="resetOrderForm()">
+                            <i class="fas fa-times me-1"></i>Reset
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="mobile-card">
+                <div style="padding: 1rem;">
+                    <div class="form-grid">
+                        <button class="form-btn primary" onclick="printLastOrder()">
+                            <i class="fas fa-print me-1"></i>Print Nota Terakhir
+                        </button>
+                        <button class="form-btn secondary" onclick="showTodayStats()">
+                            <i class="fas fa-calendar-day me-1"></i>Ringkasan Hari Ini
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section -->
+        <div id="historySection" class="content-section">
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-history me-2"></i>Riwayat Pesanan Saya
+                </div>
+                <div style="padding: 1rem;">
+                    <div class="form-grid" style="margin-bottom: 1rem;">
+                        <div class="form-group">
+                            <label class="form-label">Filter Tanggal</label>
+                            <input type="date" class="form-input" id="filterDate" onchange="filterHistory()">
+                        </div>
+                        <div class="form-group">
+                            <button class="form-btn primary" onclick="refreshHistory()">
+                                <i class="fas fa-refresh me-1"></i>Refresh
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div id="orderHistoryList" style="max-height: 60vh; overflow-y: auto;">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Memuat riwayat pesanan...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div id="statsSection" class="content-section">
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-chart-bar me-2"></i>Statistik Saya
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                        <div class="stat-number" id="myTodayOrders">0</div>
+                        <div class="stat-label">Pesanan Hari Ini</div>
+                    </div>
+                    <div class="stat-card accent">
+                        <div class="stat-icon"><i class="fas fa-box"></i></div>
+                        <div class="stat-number" id="myTodayGallons">0</div>
+                        <div class="stat-label">Gallon Hari Ini</div>
+                    </div>
+                    <div class="stat-card dark">
+                        <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+                        <div class="stat-number" id="myTodayRevenue">Rp 0</div>
+                        <div class="stat-label">Pendapatan Hari Ini</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+                        <div class="stat-number" id="myMonthOrders">0</div>
+                        <div class="stat-label">Total Bulan Ini</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-chart-line me-2"></i>Ringkasan Bulanan
+                </div>
+                <div style="padding: 1rem; overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Paket</th>
+                                <th>Jumlah</th>
+                                <th>Total Gallon</th>
+                                <th>Pendapatan</th>
+                            </tr>
+                        </thead>
+                        <tbody id="myMonthlySummaryBody">
+                            <tr>
+                                <td colspan="4" style="text-align: center; padding: 2rem; color: #666;">
+                                    Memuat data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyAEyZF2Ib10UD7vv8l3nclb-KfChIczIz4",
+            authDomain: "pinewater-393fe.firebaseapp.com",
+            projectId: "pinewater-393fe",
+            storageBucket: "pinewater-393fe.firebasestorage.app",
+            messagingSenderId: "1039943692827",
+            appId: "1:1039943692827:web:014dd0b891143a8a95febe",
+            measurementId: "G-931M74XQQK"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        window.db = db;
+        window.addDoc = addDoc;
+        window.collection = collection;
+        window.getDocs = getDocs;
+        window.query = query;
+        window.where = where;
+        window.orderBy = orderBy;
+        window.serverTimestamp = serverTimestamp;
+        
+        console.log('Firebase initialized successfully for Pinewater');
+    </script>
+
+    <script>
+        let currentUser = null;
+        let allOrdersData = [];
+        let myOrdersData = [];
+        let orderCounter = 1;
+
+        const systemUsers = [
+            { id: '1', username: 'admin', password: 'pinewater123', role: 'admin', fullName: 'Admin Pinewater' },
+            { id: '2', username: 'staff1', password: 'staff123', role: 'staff', fullName: 'Staff 1' },
+            { id: '3', username: 'staff2', password: 'staff123', role: 'staff', fullName: 'Staff 2' }
+        ];
+
+        if (!localStorage.getItem('pinewater_users')) {
+            localStorage.setItem('pinewater_users', JSON.stringify(systemUsers));
+        }
+
+        function togglePassword() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.getElementById('passwordToggleIcon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.className = 'fas fa-eye-slash';
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.className = 'fas fa-eye';
+            }
+        }
+
+        function handleLogin(event) {
+            event.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            const users = JSON.parse(localStorage.getItem('pinewater_users') || '[]');
+            const user = users.find(u => u.username === username && u.password === password);
+            
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('pinewater_current_user', JSON.stringify(user));
+                
+                showLoginAlert('Login berhasil! Selamat datang ' + user.fullName, 'success');
+                
+                setTimeout(() => {
+                    if (user.role === 'admin') {
+                        showAdminApp();
+                    } else {
+                        showStaffApp();
+                    }
+                }, 1000);
+            } else {
+                showLoginAlert('Username atau password salah!', 'danger');
+            }
+        }
+
+        function showLoginAlert(message, type) {
+            const alertContainer = document.getElementById('loginAlert');
+            alertContainer.innerHTML = `
+                <div class="alert alert-${type} mt-3" style="border-radius: 12px; border: none;">
+                    ${message}
+                </div>
+            `;
+            setTimeout(() => alertContainer.innerHTML = '', 4000);
+        }
+
+        async function showAdminApp() {
+            document.getElementById('loginPage').classList.remove('active');
+            document.getElementById('adminApp').classList.add('active');
+            document.getElementById('staffApp').classList.remove('active');
+            
+            document.getElementById('adminUser').textContent = currentUser.fullName;
+            
+            const today = new Date();
+            if (document.getElementById('filterDateStart')) {
+                document.getElementById('filterDateStart').valueAsDate = today;
+                document.getElementById('filterDateEnd').valueAsDate = today;
+            }
+            
+            await loadAllOrdersData();
+            updateAdminDashboard();
+        }
+
+        function showStaffApp() {
+            document.getElementById('loginPage').classList.remove('active');
+            document.getElementById('adminApp').classList.remove('active');
+            document.getElementById('staffApp').classList.add('active');
+            
+            document.getElementById('staffUser').textContent = currentUser.fullName;
+            
+            document.getElementById('orderDate').valueAsDate = new Date();
+            document.getElementById('filterDate').valueAsDate = new Date();
+            
+            loadMyOrdersData();
+            updateStaffStats();
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin keluar?')) {
+                localStorage.removeItem('pinewater_current_user');
+                currentUser = null;
+                document.getElementById('adminApp').classList.remove('active');
+                document.getElementById('staffApp').classList.remove('active');
+                document.getElementById('loginPage').classList.add('active');
+                document.getElementById('loginForm').reset();
+                showAlert('Berhasil logout!', 'success');
+            }
+        }
+
+        function showAdminSection(section) {
+            document.querySelectorAll('#adminApp .content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#adminApp .mobile-nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(section + 'Section').classList.add('active');
+            event.target.classList.add('active');
+            
+            if (section === 'monitoring') {
+                updateMonitoringTable();
+            } else if (section === 'comparison') {
+                updateComparisonSection();
+            }
+        }
+
+        function showStaffSection(section) {
+            document.querySelectorAll('#staffApp .content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('#staffApp .mobile-nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(section + 'Section').classList.add('active');
+            event.target.classList.add('active');
+            
+            if (section === 'history') {
+                loadStaffHistory();
+            } else if (section === 'stats') {
+                updateStaffStats();
+                updateMyMonthlySummary();
+            }
+        }
+
+        async function loadAllOrdersData() {
+            try {
+                const q = window.query(window.collection(window.db, 'pesanan'), window.orderBy('timestamp', 'desc'));
+                const querySnapshot = await window.getDocs(q);
+                
+                allOrdersData = [];
+                querySnapshot.forEach((doc) => {
+                    allOrdersData.push({ id: doc.id, ...doc.data() });
+                });
+                
+                console.log('Loaded all orders:', allOrdersData.length);
+                
+            } catch (error) {
+                console.error('Error loading orders:', error);
+                const localData = localStorage.getItem('pinewater_all_orders');
+                if (localData) {
+                    allOrdersData = JSON.parse(localData);
+                }
+            }
+        }
+
+        async function loadMyOrdersData() {
+            try {
+                const q = window.query(
+                    window.collection(window.db, 'pesanan'),
+                    window.where('createdBy', '==', currentUser.username),
+                    window.orderBy('timestamp', 'desc')
+                );
+                const querySnapshot = await window.getDocs(q);
+                
+                myOrdersData = [];
+                querySnapshot.forEach((doc) => {
+                    myOrdersData.push({ id: doc.id, ...doc.data() });
+                });
+                
+                console.log('Loaded my orders:', myOrdersData.length);
+                
+            } catch (error) {
+                console.error('Error loading my orders:', error);
+                const localData = localStorage.getItem('pinewater_orders_' + currentUser.username);
+                if (localData) {
+                    myOrdersData = JSON.parse(localData);
+                }
+            }
+        }
+
+        function updateAdminDashboard() {
+            const today = new Date().toDateString();
+            
+            const todayOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.toDateString() === today;
+            });
+            
+            const staff1TodayOrders = todayOrders.filter(o => o.createdBy === 'staff1');
+            const staff2TodayOrders = todayOrders.filter(o => o.createdBy === 'staff2');
+            
+            const totalOrders = todayOrders.length;
+            const totalGallons = todayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            const totalRevenue = todayOrders.reduce((sum, o) => sum + o.total, 0);
+            
+            document.getElementById('totalOrdersToday').textContent = totalOrders;
+            document.getElementById('totalGallonsToday').textContent = totalGallons;
+            document.getElementById('totalRevenueToday').textContent = 'Rp ' + totalRevenue.toLocaleString('id-ID');
+            
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const monthOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+            });
+            
+            document.getElementById('totalOrdersMonth').textContent = monthOrders.length;
+            
+            const staff1MonthOrders = monthOrders.filter(o => o.createdBy === 'staff1');
+            const staff2MonthOrders = monthOrders.filter(o => o.createdBy === 'staff2');
+            
+            document.getElementById('staff1OrdersToday').textContent = staff1TodayOrders.length;
+            document.getElementById('staff1GallonsToday').textContent = staff1TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('staff1RevenueToday').textContent = 'Rp ' + staff1TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            document.getElementById('staff1OrdersMonth').textContent = staff1MonthOrders.length;
+            document.getElementById('staff1GallonsMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('staff1RevenueMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            document.getElementById('staff2OrdersToday').textContent = staff2TodayOrders.length;
+            document.getElementById('staff2GallonsToday').textContent = staff2TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('staff2RevenueToday').textContent = 'Rp ' + staff2TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            document.getElementById('staff2OrdersMonth').textContent = staff2MonthOrders.length;
+            document.getElementById('staff2GallonsMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
+            document.getElementById('staff2RevenueMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
+            
+            const staff1LastOrder = staff1TodayOrders.length > 0 ? staff1TodayOrders[0] : null;
+            const staff2LastOrder = staff2TodayOrders.length > 0 ? staff2TodayOrders[0] : null;
+            
+            const now = new Date();
+            const fourHoursAgo = new Date(now.getTime() - 4 * 60 * 60 * 1000);
+            
+            document.getElementById('staff1Status').textContent = (staff1LastOrder && new Date(staff1LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'Aktif' : 'Offline';
+            document.getElementById('staff1Status').className = (staff1LastOrder && new Date(staff1LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'staff-status active' : 'staff-status offline';
+            
+            document.getElementById('staff2Status').textContent = (staff2LastOrder && new Date(staff2LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'Aktif' : 'Offline';
+            document.getElementById('staff2Status').className = (staff2LastOrder && new Date(staff2LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'staff-status active' : 'staff-status offline';
+        }
+
+        function updateMonitoringTable() {
+            const tbody = document.getElementById('monitoringTableBody');
+            
+            if (allOrdersData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 2rem; color: #666;">
+                            Belum ada data pesanan
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+
+            let html = '';
+            allOrdersData.forEach(order => {
+                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                const staffClass = order.createdBy === 'staff1' ? 'staff1' : 'staff2';
+                const staffName = order.createdBy === '
