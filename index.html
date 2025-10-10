@@ -723,6 +723,9 @@
             <button class="mobile-nav-item active" onclick="showAdminSection('dashboard')">
                 <i class="fas fa-chart-dashboard me-1"></i>Dashboard
             </button>
+            <button class="mobile-nav-item" onclick="showAdminSection('attendance')">
+                <i class="fas fa-calendar-check me-1"></i>Absensi
+            </button>
             <button class="mobile-nav-item" onclick="showAdminSection('monitoring')">
                 <i class="fas fa-monitor-waveform me-1"></i>Monitoring
             </button>
@@ -820,6 +823,129 @@
                     <span id="staff2OrdersMonth">0</span> pesanan •
                     <span id="staff2GallonsMonth">0</span> gallon •
                     Rp <span id="staff2RevenueMonth">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Attendance Section -->
+        <div id="attendanceSection" class="content-section">
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-calendar-check me-2"></i>Rekap Absensi Hari Ini
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card staff1">
+                        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="stat-number" id="staff1AttendanceStatus">-</div>
+                        <div class="stat-label">Status Staff 1</div>
+                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">
+                            <span id="staff1CheckInTime">-</span>
+                        </div>
+                    </div>
+                    <div class="stat-card staff2">
+                        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
+                        <div class="stat-number" id="staff2AttendanceStatus">-</div>
+                        <div class="stat-label">Status Staff 2</div>
+                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">
+                            <span id="staff2CheckInTime">-</span>
+                        </div>
+                    </div>
+                    <div class="stat-card primary">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-number" id="staff1WorkHours">0</div>
+                        <div class="stat-label">Jam Kerja Staff 1</div>
+                    </div>
+                    <div class="stat-card accent">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-number" id="staff2WorkHours">0</div>
+                        <div class="stat-label">Jam Kerja Staff 2</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="filter-section">
+                <h6 style="margin-bottom: 1rem; color: var(--primary-color); font-weight: 600;">
+                    <i class="fas fa-filter me-2"></i>Filter Riwayat Absensi
+                </h6>
+                <div class="filter-row">
+                    <div class="form-group">
+                        <label class="form-label">Staff</label>
+                        <select class="form-select" id="filterAttendanceStaff">
+                            <option value="">Semua Staff</option>
+                            <option value="staff1">Staff 1</option>
+                            <option value="staff2">Staff 2</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Mulai</label>
+                        <input type="date" class="form-input" id="filterAttendanceDateStart">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Selesai</label>
+                        <input type="date" class="form-input" id="filterAttendanceDateEnd">
+                    </div>
+                    <div class="form-group">
+                        <button class="form-btn primary" onclick="applyAttendanceFilter()">
+                            <i class="fas fa-search me-1"></i>Filter
+                        </button>
+                        <button class="form-btn secondary" onclick="clearAttendanceFilter()">
+                            <i class="fas fa-times me-1"></i>Reset
+                        </button>
+                        <button class="form-btn export" onclick="exportAttendanceData()">
+                            <i class="fas fa-download me-1"></i>Export
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-table me-2"></i>Riwayat Absensi
+                </div>
+                <div style="padding: 1rem; overflow-x: auto;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Tanggal</th>
+                                <th>Staff</th>
+                                <th>Check In</th>
+                                <th>Check Out</th>
+                                <th>Total Jam</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendanceTableBody">
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
+                                    <i class="fas fa-spinner fa-spin me-2"></i>Memuat data absensi...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header admin-card-header">
+                    <i class="fas fa-chart-pie me-2"></i>Statistik Kehadiran Bulan Ini
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card staff1">
+                        <div class="stat-number" id="staff1AttendanceDays">0</div>
+                        <div class="stat-label">Hari Hadir Staff 1</div>
+                    </div>
+                    <div class="stat-card staff2">
+                        <div class="stat-number" id="staff2AttendanceDays">0</div>
+                        <div class="stat-label">Hari Hadir Staff 2</div>
+                    </div>
+                    <div class="stat-card primary">
+                        <div class="stat-number" id="staff1AvgHours">0</div>
+                        <div class="stat-label">Rata-rata Jam Staff 1</div>
+                    </div>
+                    <div class="stat-card accent">
+                        <div class="stat-number" id="staff2AvgHours">0</div>
+                        <div class="stat-label">Rata-rata Jam Staff 2</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1017,7 +1143,10 @@
         </div>
 
         <div class="mobile-nav">
-            <button class="mobile-nav-item active" onclick="showStaffSection('order')">
+            <button class="mobile-nav-item active" onclick="showStaffSection('attendance')">
+                <i class="fas fa-fingerprint me-1"></i>Absensi
+            </button>
+            <button class="mobile-nav-item" onclick="showStaffSection('order')">
                 <i class="fas fa-plus-circle me-1"></i>Pesanan Baru
             </button>
             <button class="mobile-nav-item" onclick="showStaffSection('history')">
@@ -1026,6 +1155,83 @@
             <button class="mobile-nav-item" onclick="showStaffSection('stats')">
                 <i class="fas fa-chart-bar me-1"></i>Statistik
             </button>
+        </div>
+
+        <!-- Attendance Section for Staff -->
+        <div id="attendanceSection" class="content-section active">
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-calendar-check me-2"></i>Absensi Hari Ini
+                </div>
+                <div style="padding: 2rem;">
+                    <div style="text-align: center; margin-bottom: 2rem;">
+                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div style="font-size: 2rem; font-weight: bold; color: var(--dark-blue);" id="currentTime">
+                            00:00:00
+                        </div>
+                        <div style="font-size: 1.2rem; color: #666; margin-top: 0.5rem;" id="currentDate">
+                            Loading...
+                        </div>
+                    </div>
+
+                    <div id="attendanceStatusCard" style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; text-align: center;">
+                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--dark-blue); margin-bottom: 0.5rem;">
+                            Status Absensi
+                        </div>
+                        <div id="attendanceStatusText" style="font-size: 1.5rem; font-weight: bold; color: #666;">
+                            Belum Absen
+                        </div>
+                        <div id="attendanceTimeInfo" style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
+                        </div>
+                    </div>
+
+                    <div style="display: grid; gap: 1rem;">
+                        <button class="form-btn primary" id="checkInBtn" onclick="checkIn()" style="padding: 1.2rem; font-size: 1.1rem;">
+                            <i class="fas fa-sign-in-alt me-2"></i>Check In
+                        </button>
+                        <button class="form-btn secondary" id="checkOutBtn" onclick="checkOut()" style="padding: 1.2rem; font-size: 1.1rem;" disabled>
+                            <i class="fas fa-sign-out-alt me-2"></i>Check Out
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-history me-2"></i>Riwayat Absensi Saya
+                </div>
+                <div id="myAttendanceHistory" style="padding: 1rem; max-height: 50vh; overflow-y: auto;">
+                    <div class="loading">
+                        <div class="spinner"></div>
+                        <p>Memuat riwayat absensi...</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mobile-card">
+                <div class="mobile-card-header">
+                    <i class="fas fa-chart-bar me-2"></i>Statistik Kehadiran Bulan Ini
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card primary">
+                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
+                        <div class="stat-number" id="myAttendanceDays">0</div>
+                        <div class="stat-label">Hari Hadir</div>
+                    </div>
+                    <div class="stat-card accent">
+                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
+                        <div class="stat-number" id="myTotalHours">0</div>
+                        <div class="stat-label">Total Jam Kerja</div>
+                    </div>
+                    <div class="stat-card dark">
+                        <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
+                        <div class="stat-number" id="myAvgHours">0</div>
+                        <div class="stat-label">Rata-rata Jam/Hari</div>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <!-- Order Section -->
@@ -1218,6 +1424,10 @@
         let allOrdersData = [];
         let myOrdersData = [];
         let orderCounter = 1;
+        let allAttendanceData = [];
+        let myAttendanceData = [];
+        let todayAttendance = null;
+        let clockInterval = null;
 
         const systemUsers = [
             { id: '1', username: 'admin', password: 'pinewater123', role: 'admin', fullName: 'Admin Pinewater' },
@@ -1290,8 +1500,13 @@
                 document.getElementById('filterDateStart').valueAsDate = today;
                 document.getElementById('filterDateEnd').valueAsDate = today;
             }
+            if (document.getElementById('filterAttendanceDateStart')) {
+                document.getElementById('filterAttendanceDateStart').valueAsDate = today;
+                document.getElementById('filterAttendanceDateEnd').valueAsDate = today;
+            }
             
             await loadAllOrdersData();
+            await loadAllAttendanceData();
             updateAdminDashboard();
         }
 
@@ -1306,11 +1521,17 @@
             document.getElementById('filterDate').valueAsDate = new Date();
             
             loadMyOrdersData();
+            loadMyAttendanceData();
             updateStaffStats();
+            startClock();
+            checkTodayAttendance();
         }
 
         function logout() {
             if (confirm('Apakah Anda yakin ingin keluar?')) {
+                if (clockInterval) {
+                    clearInterval(clockInterval);
+                }
                 localStorage.removeItem('pinewater_current_user');
                 currentUser = null;
                 document.getElementById('adminApp').classList.remove('active');
@@ -1328,7 +1549,9 @@
             document.getElementById(section + 'Section').classList.add('active');
             event.target.classList.add('active');
             
-            if (section === 'monitoring') {
+            if (section === 'attendance') {
+                updateAdminAttendance();
+            } else if (section === 'monitoring') {
                 updateMonitoringTable();
             } else if (section === 'comparison') {
                 updateComparisonSection();
@@ -1342,7 +1565,11 @@
             document.getElementById(section + 'Section').classList.add('active');
             event.target.classList.add('active');
             
-            if (section === 'history') {
+            if (section === 'attendance') {
+                checkTodayAttendance();
+                loadMyAttendanceHistory();
+                updateMyAttendanceStats();
+            } else if (section === 'history') {
                 loadStaffHistory();
             } else if (section === 'stats') {
                 updateStaffStats();
@@ -2122,6 +2349,520 @@
             `;
             
             tbody.innerHTML = html;
+        }
+
+        // ========== ATTENDANCE FUNCTIONS ==========
+        
+        async function loadAllAttendanceData() {
+            try {
+                const q = window.query(window.collection(window.db, 'absensi'), window.orderBy('timestamp', 'desc'));
+                const querySnapshot = await window.getDocs(q);
+                
+                allAttendanceData = [];
+                querySnapshot.forEach((doc) => {
+                    allAttendanceData.push({ id: doc.id, ...doc.data() });
+                });
+                
+                console.log('Loaded all attendance:', allAttendanceData.length);
+                
+            } catch (error) {
+                console.error('Error loading attendance:', error);
+                const localData = localStorage.getItem('pinewater_all_attendance');
+                if (localData) {
+                    allAttendanceData = JSON.parse(localData);
+                }
+            }
+        }
+
+        async function loadMyAttendanceData() {
+            try {
+                const q = window.query(
+                    window.collection(window.db, 'absensi'),
+                    window.where('username', '==', currentUser.username),
+                    window.orderBy('timestamp', 'desc')
+                );
+                const querySnapshot = await window.getDocs(q);
+                
+                myAttendanceData = [];
+                querySnapshot.forEach((doc) => {
+                    myAttendanceData.push({ id: doc.id, ...doc.data() });
+                });
+                
+                console.log('Loaded my attendance:', myAttendanceData.length);
+                
+            } catch (error) {
+                console.error('Error loading my attendance:', error);
+                const localData = localStorage.getItem('pinewater_attendance_' + currentUser.username);
+                if (localData) {
+                    myAttendanceData = JSON.parse(localData);
+                }
+            }
+        }
+
+        function startClock() {
+            if (clockInterval) clearInterval(clockInterval);
+            
+            function updateClock() {
+                const now = new Date();
+                const timeString = now.toLocaleTimeString('id-ID');
+                const dateString = now.toLocaleDateString('id-ID', { 
+                    weekday: 'long', 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                });
+                
+                if (document.getElementById('currentTime')) {
+                    document.getElementById('currentTime').textContent = timeString;
+                    document.getElementById('currentDate').textContent = dateString;
+                }
+            }
+            
+            updateClock();
+            clockInterval = setInterval(updateClock, 1000);
+        }
+
+        function checkTodayAttendance() {
+            const today = new Date().toDateString();
+            todayAttendance = myAttendanceData.find(att => {
+                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                return attDate.toDateString() === today;
+            });
+            
+            const statusCard = document.getElementById('attendanceStatusCard');
+            const statusText = document.getElementById('attendanceStatusText');
+            const timeInfo = document.getElementById('attendanceTimeInfo');
+            const checkInBtn = document.getElementById('checkInBtn');
+            const checkOutBtn = document.getElementById('checkOutBtn');
+            
+            if (todayAttendance) {
+                if (todayAttendance.checkOut) {
+                    statusCard.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
+                    statusText.textContent = 'Sudah Check Out';
+                    statusText.style.color = '#991b1b';
+                    
+                    const checkInTime = new Date(todayAttendance.checkIn);
+                    const checkOutTime = new Date(todayAttendance.checkOut);
+                    const hours = ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1);
+                    
+                    timeInfo.innerHTML = `
+                        Check In: ${checkInTime.toLocaleTimeString('id-ID')}<br>
+                        Check Out: ${checkOutTime.toLocaleTimeString('id-ID')}<br>
+                        Total: ${hours} jam
+                    `;
+                    
+                    checkInBtn.disabled = true;
+                    checkOutBtn.disabled = true;
+                } else {
+                    statusCard.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
+                    statusText.textContent = 'Sudah Check In';
+                    statusText.style.color = '#065f46';
+                    
+                    const checkInTime = new Date(todayAttendance.checkIn);
+                    timeInfo.innerHTML = `Check In: ${checkInTime.toLocaleTimeString('id-ID')}`;
+                    
+                    checkInBtn.disabled = true;
+                    checkOutBtn.disabled = false;
+                }
+            } else {
+                statusCard.style.background = '#f8f9fa';
+                statusText.textContent = 'Belum Absen';
+                statusText.style.color = '#666';
+                timeInfo.innerHTML = '';
+                
+                checkInBtn.disabled = false;
+                checkOutBtn.disabled = true;
+            }
+        }
+
+        async function checkIn() {
+            if (todayAttendance) {
+                showAlert('Anda sudah check in hari ini!', 'warning');
+                return;
+            }
+            
+            if (!confirm('Konfirmasi Check In sekarang?')) return;
+            
+            const attendanceData = {
+                username: currentUser.username,
+                fullName: currentUser.fullName,
+                checkIn: new Date().toISOString(),
+                checkOut: null,
+                timestamp: window.serverTimestamp(),
+                date: new Date().toDateString()
+            };
+            
+            try {
+                await window.addDoc(window.collection(window.db, 'absensi'), attendanceData);
+                
+                attendanceData.timestamp = new Date();
+                myAttendanceData.unshift(attendanceData);
+                todayAttendance = attendanceData;
+                
+                localStorage.setItem('pinewater_attendance_' + currentUser.username, JSON.stringify(myAttendanceData));
+                
+                showAlert('Check In berhasil!', 'success');
+                checkTodayAttendance();
+                loadMyAttendanceHistory();
+                
+            } catch (error) {
+                console.error('Error check in:', error);
+                showAlert('Gagal check in: ' + error.message, 'danger');
+            }
+        }
+
+        async function checkOut() {
+            if (!todayAttendance || todayAttendance.checkOut) {
+                showAlert('Anda belum check in atau sudah check out!', 'warning');
+                return;
+            }
+            
+            if (!confirm('Konfirmasi Check Out sekarang?')) return;
+            
+            try {
+                const checkOutTime = new Date().toISOString();
+                
+                // Update di Firebase jika ada id
+                if (todayAttendance.id) {
+                    await window.updateDoc(
+                        window.doc(window.db, 'absensi', todayAttendance.id),
+                        { checkOut: checkOutTime }
+                    );
+                }
+                
+                // Update lokal
+                todayAttendance.checkOut = checkOutTime;
+                const index = myAttendanceData.findIndex(a => a.date === todayAttendance.date);
+                if (index !== -1) {
+                    myAttendanceData[index] = todayAttendance;
+                }
+                
+                localStorage.setItem('pinewater_attendance_' + currentUser.username, JSON.stringify(myAttendanceData));
+                
+                showAlert('Check Out berhasil!', 'success');
+                checkTodayAttendance();
+                loadMyAttendanceHistory();
+                updateMyAttendanceStats();
+                
+            } catch (error) {
+                console.error('Error check out:', error);
+                showAlert('Gagal check out: ' + error.message, 'danger');
+            }
+        }
+
+        function loadMyAttendanceHistory() {
+            const container = document.getElementById('myAttendanceHistory');
+            
+            if (myAttendanceData.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 2rem; color: #666;">
+                        <i class="fas fa-calendar-times" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
+                        <p>Belum ada riwayat absensi</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let html = '';
+            myAttendanceData.slice(0, 10).forEach(att => {
+                const checkInTime = new Date(att.checkIn);
+                const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
+                const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
+                
+                const statusClass = att.checkOut ? 'success' : 'warning';
+                const statusText = att.checkOut ? 'Lengkap' : 'Belum Check Out';
+                
+                html += `
+                    <div class="order-item">
+                        <div class="order-header">
+                            <div style="font-weight: bold; color: var(--dark-blue);">
+                                ${checkInTime.toLocaleDateString('id-ID')}
+                            </div>
+                            <div class="order-status" style="background: ${statusClass === 'success' ? '#d1fae5' : '#fef3c7'}; color: ${statusClass === 'success' ? '#065f46' : '#92400e'};">
+                                ${statusText}
+                            </div>
+                        </div>
+                        <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
+                            <strong>Check In:</strong> ${checkInTime.toLocaleTimeString('id-ID')}<br>
+                            <strong>Check Out:</strong> ${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}<br>
+                            <strong>Total Jam:</strong> ${hours} jam
+                        </div>
+                    </div>
+                `;
+            });
+            
+            container.innerHTML = html;
+        }
+
+        function updateMyAttendanceStats() {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            
+            const monthAttendance = myAttendanceData.filter(att => {
+                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                return attDate.getMonth() === currentMonth && attDate.getFullYear() === currentYear;
+            });
+            
+            const completedDays = monthAttendance.filter(att => att.checkOut).length;
+            
+            let totalHours = 0;
+            monthAttendance.forEach(att => {
+                if (att.checkOut) {
+                    const checkIn = new Date(att.checkIn);
+                    const checkOut = new Date(att.checkOut);
+                    totalHours += (checkOut - checkIn) / (1000 * 60 * 60);
+                }
+            });
+            
+            const avgHours = completedDays > 0 ? (totalHours / completedDays).toFixed(1) : 0;
+            
+            if (document.getElementById('myAttendanceDays')) {
+                document.getElementById('myAttendanceDays').textContent = completedDays;
+                document.getElementById('myTotalHours').textContent = totalHours.toFixed(1);
+                document.getElementById('myAvgHours').textContent = avgHours;
+            }
+        }
+
+        function updateAdminAttendance() {
+            const today = new Date().toDateString();
+            
+            const staff1Today = allAttendanceData.find(att => {
+                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                return att.username === 'staff1' && attDate.toDateString() === today;
+            });
+            
+            const staff2Today = allAttendanceData.find(att => {
+                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                return att.username === 'staff2' && attDate.toDateString() === today;
+            });
+            
+            // Update Staff 1 status
+            if (staff1Today) {
+                if (staff1Today.checkOut) {
+                    document.getElementById('staff1AttendanceStatus').textContent = 'Check Out';
+                    document.getElementById('staff1AttendanceStatus').style.color = '#991b1b';
+                    const hours = ((new Date(staff1Today.checkOut) - new Date(staff1Today.checkIn)) / (1000 * 60 * 60)).toFixed(1);
+                    document.getElementById('staff1CheckInTime').textContent = `${hours} jam`;
+                    document.getElementById('staff1WorkHours').textContent = hours;
+                } else {
+                    document.getElementById('staff1AttendanceStatus').textContent = 'Check In';
+                    document.getElementById('staff1AttendanceStatus').style.color = '#065f46';
+                    const checkInTime = new Date(staff1Today.checkIn);
+                    document.getElementById('staff1CheckInTime').textContent = checkInTime.toLocaleTimeString('id-ID');
+                    const hours = ((new Date() - checkInTime) / (1000 * 60 * 60)).toFixed(1);
+                    document.getElementById('staff1WorkHours').textContent = hours;
+                }
+            } else {
+                document.getElementById('staff1AttendanceStatus').textContent = 'Belum Absen';
+                document.getElementById('staff1AttendanceStatus').style.color = '#666';
+                document.getElementById('staff1CheckInTime').textContent = '-';
+                document.getElementById('staff1WorkHours').textContent = '0';
+            }
+            
+            // Update Staff 2 status
+            if (staff2Today) {
+                if (staff2Today.checkOut) {
+                    document.getElementById('staff2AttendanceStatus').textContent = 'Check Out';
+                    document.getElementById('staff2AttendanceStatus').style.color = '#991b1b';
+                    const hours = ((new Date(staff2Today.checkOut) - new Date(staff2Today.checkIn)) / (1000 * 60 * 60)).toFixed(1);
+                    document.getElementById('staff2CheckInTime').textContent = `${hours} jam`;
+                    document.getElementById('staff2WorkHours').textContent = hours;
+                } else {
+                    document.getElementById('staff2AttendanceStatus').textContent = 'Check In';
+                    document.getElementById('staff2AttendanceStatus').style.color = '#065f46';
+                    const checkInTime = new Date(staff2Today.checkIn);
+                    document.getElementById('staff2CheckInTime').textContent = checkInTime.toLocaleTimeString('id-ID');
+                    const hours = ((new Date() - checkInTime) / (1000 * 60 * 60)).toFixed(1);
+                    document.getElementById('staff2WorkHours').textContent = hours;
+                }
+            } else {
+                document.getElementById('staff2AttendanceStatus').textContent = 'Belum Absen';
+                document.getElementById('staff2AttendanceStatus').style.color = '#666';
+                document.getElementById('staff2CheckInTime').textContent = '-';
+                document.getElementById('staff2WorkHours').textContent = '0';
+            }
+            
+            // Update monthly stats
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            
+            const staff1Month = allAttendanceData.filter(att => {
+                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                return att.username === 'staff1' && attDate.getMonth() === currentMonth && attDate.getFullYear() === currentYear;
+            });
+            
+            const staff2Month = allAttendanceData.filter(att => {
+                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                return att.username === 'staff2' && attDate.getMonth() === currentMonth && attDate.getFullYear() === currentYear;
+            });
+            
+            const staff1Days = staff1Month.filter(att => att.checkOut).length;
+            const staff2Days = staff2Month.filter(att => att.checkOut).length;
+            
+            let staff1TotalHours = 0;
+            staff1Month.forEach(att => {
+                if (att.checkOut) {
+                    staff1TotalHours += (new Date(att.checkOut) - new Date(att.checkIn)) / (1000 * 60 * 60);
+                }
+            });
+            
+            let staff2TotalHours = 0;
+            staff2Month.forEach(att => {
+                if (att.checkOut) {
+                    staff2TotalHours += (new Date(att.checkOut) - new Date(att.checkIn)) / (1000 * 60 * 60);
+                }
+            });
+            
+            document.getElementById('staff1AttendanceDays').textContent = staff1Days;
+            document.getElementById('staff2AttendanceDays').textContent = staff2Days;
+            document.getElementById('staff1AvgHours').textContent = staff1Days > 0 ? (staff1TotalHours / staff1Days).toFixed(1) : '0';
+            document.getElementById('staff2AvgHours').textContent = staff2Days > 0 ? (staff2TotalHours / staff2Days).toFixed(1) : '0';
+            
+            // Update attendance table
+            updateAttendanceTable();
+        }
+
+        function updateAttendanceTable() {
+            const tbody = document.getElementById('attendanceTableBody');
+            
+            if (allAttendanceData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
+                            Belum ada data absensi
+                        </td>
+                    </tr>
+                `;
+                return;
+            }
+            
+            let html = '';
+            allAttendanceData.forEach(att => {
+                const date = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                const checkInTime = new Date(att.checkIn);
+                const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
+                const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
+                
+                const staffClass = att.username === 'staff1' ? 'staff1' : 'staff2';
+                const staffName = att.username === 'staff1' ? 'Staff 1' : 'Staff 2';
+                const statusBadge = att.checkOut 
+                    ? '<span style="background: #d1fae5; color: #065f46; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Lengkap</span>'
+                    : '<span style="background: #fef3c7; color: #92400e; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Belum Check Out</span>';
+                
+                html += `
+                    <tr>
+                        <td>${date.toLocaleDateString('id-ID')}</td>
+                        <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
+                        <td>${checkInTime.toLocaleTimeString('id-ID')}</td>
+                        <td>${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}</td>
+                        <td style="font-weight: bold; color: var(--primary-color);">${hours} jam</td>
+                        <td>${statusBadge}</td>
+                    </tr>
+                `;
+            });
+            
+            tbody.innerHTML = html;
+        }
+
+        function applyAttendanceFilter() {
+            const staffFilter = document.getElementById('filterAttendanceStaff').value;
+            const startDate = document.getElementById('filterAttendanceDateStart').value;
+            const endDate = document.getElementById('filterAttendanceDateEnd').value;
+            
+            let filteredData = [...allAttendanceData];
+            
+            if (staffFilter) {
+                filteredData = filteredData.filter(att => att.username === staffFilter);
+            }
+            
+            if (startDate) {
+                const start = new Date(startDate);
+                filteredData = filteredData.filter(att => {
+                    const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                    return attDate >= start;
+                });
+            }
+            
+            if (endDate) {
+                const end = new Date(endDate);
+                end.setHours(23, 59, 59, 999);
+                filteredData = filteredData.filter(att => {
+                    const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                    return attDate <= end;
+                });
+            }
+            
+            const tbody = document.getElementById('attendanceTableBody');
+            if (filteredData.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
+                            Tidak ada data dengan filter yang dipilih
+                        </td>
+                    </tr>
+                `;
+            } else {
+                let html = '';
+                filteredData.forEach(att => {
+                    const date = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                    const checkInTime = new Date(att.checkIn);
+                    const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
+                    const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
+                    
+                    const staffClass = att.username === 'staff1' ? 'staff1' : 'staff2';
+                    const staffName = att.username === 'staff1' ? 'Staff 1' : 'Staff 2';
+                    const statusBadge = att.checkOut 
+                        ? '<span style="background: #d1fae5; color: #065f46; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Lengkap</span>'
+                        : '<span style="background: #fef3c7; color: #92400e; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Belum Check Out</span>';
+                    
+                    html += `
+                        <tr>
+                            <td>${date.toLocaleDateString('id-ID')}</td>
+                            <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
+                            <td>${checkInTime.toLocaleTimeString('id-ID')}</td>
+                            <td>${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}</td>
+                            <td style="font-weight: bold; color: var(--primary-color);">${hours} jam</td>
+                            <td>${statusBadge}</td>
+                        </tr>
+                    `;
+                });
+                tbody.innerHTML = html;
+            }
+            
+            showAlert(`Filter diterapkan. Menampilkan ${filteredData.length} data.`, 'success');
+        }
+
+        function clearAttendanceFilter() {
+            document.getElementById('filterAttendanceStaff').value = '';
+            document.getElementById('filterAttendanceDateStart').value = '';
+            document.getElementById('filterAttendanceDateEnd').value = '';
+            updateAttendanceTable();
+            showAlert('Filter direset.', 'info');
+        }
+
+        function exportAttendanceData() {
+            let csv = 'Tanggal,Staff,Check In,Check Out,Total Jam,Status\n';
+            
+            allAttendanceData.forEach(att => {
+                const date = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
+                const checkInTime = new Date(att.checkIn);
+                const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
+                const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
+                const staffName = att.username === 'staff1' ? 'Staff 1' : 'Staff 2';
+                const status = att.checkOut ? 'Lengkap' : 'Belum Check Out';
+                
+                csv += `"${date.toLocaleDateString('id-ID')}","${staffName}","${checkInTime.toLocaleTimeString('id-ID')}","${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}","${hours}","${status}"\n`;
+            });
+            
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `pinewater-absensi-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            showAlert('Data absensi berhasil diexport!', 'success');
         }
 
         function showAlert(message, type = 'success') {
