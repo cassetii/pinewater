@@ -13,9 +13,6 @@
             --accent-color: #22d3ee;
             --dark-blue: #164e63;
             --light-bg: #ecfeff;
-            --admin-color: #0c4a6e;
-            --staff1-color: #059669;
-            --staff2-color: #7c3aed;
         }
 
         * {
@@ -31,142 +28,6 @@
             line-height: 1.6;
         }
 
-        .water-background {
-            position: relative;
-            overflow: hidden;
-        }
-
-        .water-background::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%230891b2' fill-opacity='0.05'%3E%3Cpath d='M40 10c-8 0-15 8-15 18s7 18 15 18 15-8 15-18-7-18-15-18z'/%3E%3C/g%3E%3C/svg%3E") repeat;
-            z-index: -1;
-        }
-
-        .login-container {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 1rem;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            position: relative;
-        }
-
-        .login-card {
-            background: white;
-            border-radius: 20px;
-            padding: 2.5rem;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
-            width: 100%;
-            max-width: 420px;
-            animation: slideIn 0.8s ease-out;
-            position: relative;
-            z-index: 1;
-            border-top: 5px solid var(--accent-color);
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .login-logo {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1rem;
-            color: white;
-            font-size: 2.5rem;
-            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.3);
-        }
-
-        .login-title {
-            color: var(--primary-color);
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-            font-size: 1.8rem;
-            text-align: center;
-        }
-
-        .login-subtitle {
-            color: var(--dark-blue);
-            font-size: 0.95rem;
-            font-weight: 500;
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .login-input-container {
-            position: relative;
-            margin-bottom: 1.5rem;
-        }
-
-        .login-input {
-            width: 100%;
-            padding: 1rem 1rem 1rem 3rem;
-            border: 2px solid #e9ecef;
-            border-radius: 12px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .login-input:focus {
-            border-color: var(--secondary-color);
-            box-shadow: 0 0 0 0.2rem rgba(6, 182, 212, 0.25);
-            outline: none;
-        }
-
-        .login-input-icon {
-            position: absolute;
-            left: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--primary-color);
-            font-size: 1.1rem;
-        }
-
-        .password-toggle {
-            position: absolute;
-            right: 1rem;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--dark-blue);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-
-        .password-toggle:hover {
-            color: var(--primary-color);
-        }
-
-        .login-btn {
-            width: 100%;
-            padding: 1.1rem;
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(8, 145, 178, 0.3);
-        }
-
-        .login-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(8, 145, 178, 0.4);
-        }
-
         .mobile-header {
             background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
             color: white;
@@ -177,10 +38,6 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
 
-        .admin-header {
-            background: linear-gradient(135deg, var(--admin-color) 0%, var(--primary-color) 100%);
-        }
-
         .mobile-header-content {
             display: flex;
             justify-content: space-between;
@@ -189,23 +46,32 @@
         }
 
         .mobile-header h1 {
-            font-size: 1.25rem;
+            font-size: 1.5rem;
             margin: 0;
             font-weight: 600;
         }
 
-        .logout-btn {
+        .sync-status {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
             background: rgba(255,255,255,0.2);
-            border: 1px solid rgba(255,255,255,0.3);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.3s ease;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
         }
 
-        .logout-btn:hover {
-            background: rgba(255,255,255,0.3);
+        .sync-status i {
+            font-size: 0.9rem;
+        }
+
+        .sync-status.syncing {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
         }
 
         .mobile-nav {
@@ -262,10 +128,6 @@
             font-size: 1.1rem;
         }
 
-        .admin-card-header {
-            background: linear-gradient(135deg, var(--admin-color) 0%, var(--primary-color) 100%);
-        }
-
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
@@ -287,26 +149,6 @@
             transform: translateY(-5px);
         }
 
-        .stat-card.primary {
-            border-left-color: var(--primary-color);
-        }
-
-        .stat-card.accent {
-            border-left-color: var(--accent-color);
-        }
-
-        .stat-card.dark {
-            border-left-color: var(--dark-blue);
-        }
-
-        .stat-card.staff1 {
-            border-left-color: var(--staff1-color);
-        }
-
-        .stat-card.staff2 {
-            border-left-color: var(--staff2-color);
-        }
-
         .stat-number {
             font-size: 2rem;
             font-weight: bold;
@@ -324,77 +166,6 @@
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--secondary-color);
-        }
-
-        .staff-card {
-            background: white;
-            margin: 0.5rem;
-            padding: 1.5rem;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            border-left: 5px solid var(--staff1-color);
-        }
-
-        .staff-card.staff2 {
-            border-left-color: var(--staff2-color);
-        }
-
-        .staff-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 2px solid #f0f0f0;
-        }
-
-        .staff-name {
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--dark-blue);
-        }
-
-        .staff-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-
-        .staff-status.active {
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .staff-status.offline {
-            background: #fee2e2;
-            color: #991b1b;
-        }
-
-        .staff-stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .staff-stat-item {
-            text-align: center;
-            padding: 0.75rem;
-            background: #f8f9fa;
-            border-radius: 8px;
-        }
-
-        .staff-stat-number {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: var(--primary-color);
-        }
-
-        .staff-stat-label {
-            font-size: 0.8rem;
-            color: #666;
-            margin-top: 0.25rem;
         }
 
         .form-grid {
@@ -452,14 +223,15 @@
             color: white;
         }
 
-        .form-btn.export {
-            background: var(--accent-color);
-            color: white;
-        }
-
         .form-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .form-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
         }
 
         .order-item {
@@ -469,14 +241,6 @@
             border-radius: 12px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             border-left: 4px solid var(--secondary-color);
-        }
-
-        .order-item.staff1-order {
-            border-left-color: var(--staff1-color);
-        }
-
-        .order-item.staff2-order {
-            border-left-color: var(--staff2-color);
         }
 
         .order-header {
@@ -492,47 +256,11 @@
             font-family: monospace;
         }
 
-        .order-status {
-            padding: 0.25rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            background: #d1fae5;
-            color: #065f46;
-        }
-
-        .staff-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 15px;
-            font-size: 0.75rem;
-            font-weight: 600;
-            margin-left: 0.5rem;
-        }
-
-        .staff-badge.staff1 {
-            background: rgba(5, 150, 105, 0.2);
-            color: var(--staff1-color);
-        }
-
-        .staff-badge.staff2 {
-            background: rgba(124, 58, 237, 0.2);
-            color: var(--staff2-color);
-        }
-
         .content-section {
             display: none;
         }
 
         .content-section.active {
-            display: block;
-        }
-
-        .page-section {
-            display: none;
-        }
-
-        .page-section.active {
             display: block;
         }
 
@@ -554,58 +282,10 @@
             background-color: #f8f9fa;
             font-weight: 600;
             color: var(--primary-color);
-            position: sticky;
-            top: 0;
         }
 
         .data-table tr:hover {
             background-color: #f8f9fa;
-        }
-
-        .filter-section {
-            background: white;
-            padding: 1rem;
-            margin: 0.5rem;
-            border-radius: 12px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .filter-row {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-        }
-
-        .comparison-card {
-            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-            padding: 1.5rem;
-            border-radius: 12px;
-            margin: 0.5rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-        }
-
-        .comparison-header {
-            text-align: center;
-            font-size: 1.2rem;
-            font-weight: bold;
-            color: var(--dark-blue);
-            margin-bottom: 1.5rem;
-        }
-
-        .vs-container {
-            display: grid;
-            grid-template-columns: 1fr auto 1fr;
-            gap: 1rem;
-            align-items: center;
-        }
-
-        .vs-badge {
-            background: var(--primary-color);
-            color: white;
-            padding: 0.5rem 1rem;
-            border-radius: 50%;
-            font-weight: bold;
-            font-size: 1.2rem;
         }
 
         @media (max-width: 768px) {
@@ -617,28 +297,14 @@
                 grid-template-columns: 1fr;
             }
 
-            .staff-stats-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .mobile-nav {
+                flex-wrap: wrap;
             }
 
-            .login-card {
-                margin: 0.5rem;
-                padding: 2rem;
+            .mobile-nav-item {
+                font-size: 0.8rem;
+                padding: 0.75rem 0.5rem;
             }
-
-            .vs-container {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .vs-badge {
-                margin: 0 auto;
-            }
-        }
-
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
-            to { opacity: 1; transform: translateX(-50%) translateY(0); }
         }
 
         .loading {
@@ -661,730 +327,229 @@
             0% { transform: rotate(0deg); }
             100% { transform: rotate(360deg); }
         }
+
+        .firebase-badge {
+            background: rgba(255,255,255,0.2);
+            padding: 0.25rem 0.6rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
     </style>
 </head>
 <body>
-    <!-- Login Page -->
-    <div id="loginPage" class="page-section active">
-        <div class="login-container water-background">
-            <div class="login-card">
-                <div class="login-logo">
-                    <i class="fas fa-tint"></i>
-                </div>
-                <h2 class="login-title">Pinewater</h2>
-                <p class="login-subtitle">Sistem Manajemen Gallon Air</p>
-
-                <form id="loginForm" onsubmit="handleLogin(event)">
-                    <div class="login-input-container">
-                        <input type="text" class="login-input" id="username" placeholder="Username" required>
-                        <div class="login-input-icon">
-                            <i class="fas fa-user"></i>
-                        </div>
-                    </div>
-
-                    <div class="login-input-container">
-                        <input type="password" class="login-input" id="password" placeholder="Password" required>
-                        <div class="login-input-icon">
-                            <i class="fas fa-lock"></i>
-                        </div>
-                        <div class="password-toggle" onclick="togglePassword()">
-                            <i class="fas fa-eye" id="passwordToggleIcon"></i>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="login-btn">
-                        <i class="fas fa-sign-in-alt me-2"></i>Masuk
-                    </button>
-                </form>
-
-                <div id="loginAlert"></div>
+    <div class="mobile-header">
+        <div class="mobile-header-content">
+            <h1>
+                <i class="fas fa-tint me-2"></i>
+                Pinewater
+            </h1>
+            <div class="sync-status" id="syncStatus">
+                <i class="fas fa-cloud"></i>
+                <span id="syncText">Connecting...</span>
             </div>
         </div>
     </div>
 
-    <!-- Admin App -->
-    <div id="adminApp" class="page-section">
-        <div class="mobile-header admin-header">
-            <div class="mobile-header-content">
-                <h1>
-                    <i class="fas fa-user-shield me-2"></i>
-                    Admin Panel
-                </h1>
-                <div class="user-info">
-                    <span id="adminUser">Admin</span>
-                    <button class="logout-btn" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
-                    </button>
-                </div>
+    <div class="mobile-nav">
+        <button class="mobile-nav-item active" onclick="showSection('dashboard')">
+            <i class="fas fa-chart-dashboard me-1"></i>Dashboard
+        </button>
+        <button class="mobile-nav-item" onclick="showSection('order')">
+            <i class="fas fa-plus-circle me-1"></i>Pesanan Baru
+        </button>
+        <button class="mobile-nav-item" onclick="showSection('history')">
+            <i class="fas fa-history me-1"></i>Riwayat
+        </button>
+        <button class="mobile-nav-item" onclick="showSection('stats')">
+            <i class="fas fa-chart-bar me-1"></i>Statistik
+        </button>
+    </div>
+
+    <!-- Dashboard Section -->
+    <div id="dashboardSection" class="content-section active">
+        <div class="mobile-card">
+            <div class="mobile-card-header">
+                <i class="fas fa-chart-bar me-2"></i>Statistik Hari Ini
+                <span class="firebase-badge float-end">
+                    <i class="fas fa-cloud-check"></i> Live
+                </span>
             </div>
-        </div>
-
-        <div class="mobile-nav">
-            <button class="mobile-nav-item active" onclick="showAdminSection('dashboard')">
-                <i class="fas fa-chart-dashboard me-1"></i>Dashboard
-            </button>
-            <button class="mobile-nav-item" onclick="showAdminSection('attendance')">
-                <i class="fas fa-calendar-check me-1"></i>Absensi
-            </button>
-            <button class="mobile-nav-item" onclick="showAdminSection('monitoring')">
-                <i class="fas fa-monitor-waveform me-1"></i>Monitoring
-            </button>
-            <button class="mobile-nav-item" onclick="showAdminSection('comparison')">
-                <i class="fas fa-balance-scale me-1"></i>Perbandingan
-            </button>
-            <button class="mobile-nav-item" onclick="showAdminSection('reports')">
-                <i class="fas fa-file-chart me-1"></i>Laporan
-            </button>
-        </div>
-
-        <!-- Dashboard Section -->
-        <div id="dashboardSection" class="content-section active">
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-chart-bar me-2"></i>Statistik Global Hari Ini
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="stat-number" id="totalOrdersToday">0</div>
+                    <div class="stat-label">Total Pesanan</div>
                 </div>
-                <div class="stats-grid">
-                    <div class="stat-card primary">
-                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="stat-number" id="totalOrdersToday">0</div>
-                        <div class="stat-label">Total Pesanan</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-icon"><i class="fas fa-box"></i></div>
-                        <div class="stat-number" id="totalGallonsToday">0</div>
-                        <div class="stat-label">Total Gallon</div>
-                    </div>
-                    <div class="stat-card dark">
-                        <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
-                        <div class="stat-number" id="totalRevenueToday">Rp 0</div>
-                        <div class="stat-label">Total Pendapatan</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-calendar"></i></div>
-                        <div class="stat-number" id="totalOrdersMonth">0</div>
-                        <div class="stat-label">Total Bulan Ini</div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-box"></i></div>
+                    <div class="stat-number" id="totalGallonsToday">0</div>
+                    <div class="stat-label">Total Gallon</div>
                 </div>
-            </div>
-
-            <!-- Staff Performance Cards -->
-            <div class="staff-card">
-                <div class="staff-header">
-                    <div class="staff-name">
-                        <i class="fas fa-user-circle me-2"></i>Staff 1
-                    </div>
-                    <div class="staff-status active" id="staff1Status">Aktif</div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="stat-number" id="totalRevenueToday">Rp 0</div>
+                    <div class="stat-label">Total Pendapatan</div>
                 </div>
-                <div class="staff-stats-grid">
-                    <div class="staff-stat-item">
-                        <div class="staff-stat-number" id="staff1OrdersToday">0</div>
-                        <div class="staff-stat-label">Pesanan Hari Ini</div>
-                    </div>
-                    <div class="staff-stat-item">
-                        <div class="staff-stat-number" id="staff1GallonsToday">0</div>
-                        <div class="staff-stat-label">Gallon Terjual</div>
-                    </div>
-                    <div class="staff-stat-item">
-                        <div class="staff-stat-number" id="staff1RevenueToday">Rp 0</div>
-                        <div class="staff-stat-label">Pendapatan</div>
-                    </div>
-                </div>
-                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
-                    <strong>Bulan Ini:</strong>
-                    <span id="staff1OrdersMonth">0</span> pesanan •
-                    <span id="staff1GallonsMonth">0</span> gallon •
-                    Rp <span id="staff1RevenueMonth">0</span>
-                </div>
-            </div>
-
-            <div class="staff-card staff2">
-                <div class="staff-header">
-                    <div class="staff-name">
-                        <i class="fas fa-user-circle me-2"></i>Staff 2
-                    </div>
-                    <div class="staff-status active" id="staff2Status">Aktif</div>
-                </div>
-                <div class="staff-stats-grid">
-                    <div class="staff-stat-item">
-                        <div class="staff-stat-number" id="staff2OrdersToday">0</div>
-                        <div class="staff-stat-label">Pesanan Hari Ini</div>
-                    </div>
-                    <div class="staff-stat-item">
-                        <div class="staff-stat-number" id="staff2GallonsToday">0</div>
-                        <div class="staff-stat-label">Gallon Terjual</div>
-                    </div>
-                    <div class="staff-stat-item">
-                        <div class="staff-stat-number" id="staff2RevenueToday">Rp 0</div>
-                        <div class="staff-stat-label">Pendapatan</div>
-                    </div>
-                </div>
-                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #f0f0f0;">
-                    <strong>Bulan Ini:</strong>
-                    <span id="staff2OrdersMonth">0</span> pesanan •
-                    <span id="staff2GallonsMonth">0</span> gallon •
-                    Rp <span id="staff2RevenueMonth">0</span>
-                </div>
-            </div>
-        </div>
-
-        <!-- Attendance Section -->
-        <div id="attendanceSection" class="content-section">
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-calendar-check me-2"></i>Rekap Absensi Hari Ini
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card staff1">
-                        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
-                        <div class="stat-number" id="staff1AttendanceStatus">-</div>
-                        <div class="stat-label">Status Staff 1</div>
-                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">
-                            <span id="staff1CheckInTime">-</span>
-                        </div>
-                    </div>
-                    <div class="stat-card staff2">
-                        <div class="stat-icon"><i class="fas fa-user-check"></i></div>
-                        <div class="stat-number" id="staff2AttendanceStatus">-</div>
-                        <div class="stat-label">Status Staff 2</div>
-                        <div style="margin-top: 0.5rem; font-size: 0.8rem; color: #666;">
-                            <span id="staff2CheckInTime">-</span>
-                        </div>
-                    </div>
-                    <div class="stat-card primary">
-                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                        <div class="stat-number" id="staff1WorkHours">0</div>
-                        <div class="stat-label">Jam Kerja Staff 1</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                        <div class="stat-number" id="staff2WorkHours">0</div>
-                        <div class="stat-label">Jam Kerja Staff 2</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="filter-section">
-                <h6 style="margin-bottom: 1rem; color: var(--primary-color); font-weight: 600;">
-                    <i class="fas fa-filter me-2"></i>Filter Riwayat Absensi
-                </h6>
-                <div class="filter-row">
-                    <div class="form-group">
-                        <label class="form-label">Staff</label>
-                        <select class="form-select" id="filterAttendanceStaff">
-                            <option value="">Semua Staff</option>
-                            <option value="staff1">Staff 1</option>
-                            <option value="staff2">Staff 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tanggal Mulai</label>
-                        <input type="date" class="form-input" id="filterAttendanceDateStart">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tanggal Selesai</label>
-                        <input type="date" class="form-input" id="filterAttendanceDateEnd">
-                    </div>
-                    <div class="form-group">
-                        <button class="form-btn primary" onclick="applyAttendanceFilter()">
-                            <i class="fas fa-search me-1"></i>Filter
-                        </button>
-                        <button class="form-btn secondary" onclick="clearAttendanceFilter()">
-                            <i class="fas fa-times me-1"></i>Reset
-                        </button>
-                        <button class="form-btn export" onclick="exportAttendanceData()">
-                            <i class="fas fa-download me-1"></i>Export
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-table me-2"></i>Riwayat Absensi
-                </div>
-                <div style="padding: 1rem; overflow-x: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Tanggal</th>
-                                <th>Staff</th>
-                                <th>Check In</th>
-                                <th>Check Out</th>
-                                <th>Total Jam</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="attendanceTableBody">
-                            <tr>
-                                <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
-                                    <i class="fas fa-spinner fa-spin me-2"></i>Memuat data absensi...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-chart-pie me-2"></i>Statistik Kehadiran Bulan Ini
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card staff1">
-                        <div class="stat-number" id="staff1AttendanceDays">0</div>
-                        <div class="stat-label">Hari Hadir Staff 1</div>
-                    </div>
-                    <div class="stat-card staff2">
-                        <div class="stat-number" id="staff2AttendanceDays">0</div>
-                        <div class="stat-label">Hari Hadir Staff 2</div>
-                    </div>
-                    <div class="stat-card primary">
-                        <div class="stat-number" id="staff1AvgHours">0</div>
-                        <div class="stat-label">Rata-rata Jam Staff 1</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-number" id="staff2AvgHours">0</div>
-                        <div class="stat-label">Rata-rata Jam Staff 2</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Monitoring Section -->
-        <div id="monitoringSection" class="content-section">
-            <div class="filter-section">
-                <h6 style="margin-bottom: 1rem; color: var(--primary-color); font-weight: 600;">
-                    <i class="fas fa-filter me-2"></i>Filter Data Pesanan
-                </h6>
-                <div class="filter-row">
-                    <div class="form-group">
-                        <label class="form-label">Filter Staff</label>
-                        <select class="form-select" id="filterStaff" onchange="applyMonitoringFilter()">
-                            <option value="">Semua Staff</option>
-                            <option value="staff1">Staff 1</option>
-                            <option value="staff2">Staff 2</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tanggal Mulai</label>
-                        <input type="date" class="form-input" id="filterDateStart">
-                    </div>
-                    <div class="form-group">
-                        <label class="form-label">Tanggal Selesai</label>
-                        <input type="date" class="form-input" id="filterDateEnd">
-                    </div>
-                    <div class="form-group">
-                        <button class="form-btn primary" onclick="applyMonitoringFilter()">
-                            <i class="fas fa-search me-1"></i>Filter
-                        </button>
-                        <button class="form-btn secondary" onclick="clearMonitoringFilter()">
-                            <i class="fas fa-times me-1"></i>Reset
-                        </button>
-                        <button class="form-btn export" onclick="exportMonitoringData()">
-                            <i class="fas fa-download me-1"></i>Export
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-table me-2"></i>Data Pesanan Lengkap
-                </div>
-                <div style="padding: 1rem; overflow-x: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>No. Pesanan</th>
-                                <th>Staff</th>
-                                <th>Customer</th>
-                                <th>Telepon</th>
-                                <th>Gallon</th>
-                                <th>Paket</th>
-                                <th>Total</th>
-                                <th>Tanggal</th>
-                            </tr>
-                        </thead>
-                        <tbody id="monitoringTableBody">
-                            <tr>
-                                <td colspan="8" style="text-align: center; padding: 2rem; color: #666;">
-                                    <i class="fas fa-spinner fa-spin me-2"></i>Memuat data...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <!-- Comparison Section -->
-        <div id="comparisonSection" class="content-section">
-            <div class="comparison-card">
-                <div class="comparison-header">
-                    <i class="fas fa-balance-scale me-2"></i>Perbandingan Performa Staff
-                </div>
-                
-                <div class="vs-container">
-                    <div class="stat-card staff1">
-                        <div style="font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; color: var(--staff1-color);">
-                            <i class="fas fa-user-circle me-2"></i>Staff 1
-                        </div>
-                        <div style="margin: 0.5rem 0;">
-                            <strong>Hari Ini:</strong><br>
-                            <span id="compStaff1OrdersToday">0</span> pesanan<br>
-                            <span id="compStaff1GallonsToday">0</span> gallon<br>
-                            Rp <span id="compStaff1RevenueToday">0</span>
-                        </div>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #f0f0f0;">
-                            <strong>Bulan Ini:</strong><br>
-                            <span id="compStaff1OrdersMonth">0</span> pesanan<br>
-                            <span id="compStaff1GallonsMonth">0</span> gallon<br>
-                            Rp <span id="compStaff1RevenueMonth">0</span>
-                        </div>
-                    </div>
-
-                    <div class="vs-badge">VS</div>
-
-                    <div class="stat-card staff2">
-                        <div style="font-weight: bold; font-size: 1.2rem; margin-bottom: 1rem; color: var(--staff2-color);">
-                            <i class="fas fa-user-circle me-2"></i>Staff 2
-                        </div>
-                        <div style="margin: 0.5rem 0;">
-                            <strong>Hari Ini:</strong><br>
-                            <span id="compStaff2OrdersToday">0</span> pesanan<br>
-                            <span id="compStaff2GallonsToday">0</span> gallon<br>
-                            Rp <span id="compStaff2RevenueToday">0</span>
-                        </div>
-                        <div style="margin-top: 1rem; padding-top: 1rem; border-top: 2px solid #f0f0f0;">
-                            <strong>Bulan Ini:</strong><br>
-                            <span id="compStaff2OrdersMonth">0</span> pesanan<br>
-                            <span id="compStaff2GallonsMonth">0</span> gallon<br>
-                            Rp <span id="compStaff2RevenueMonth">0</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-trophy me-2"></i>Analisis Performa
-                </div>
-                <div style="padding: 1rem;">
-                    <div id="performanceAnalysis">
-                        <div class="loading">
-                            <div class="spinner"></div>
-                            <p>Menganalisis data...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Reports Section -->
-        <div id="reportsSection" class="content-section">
-            <div class="mobile-card">
-                <div class="mobile-card-header admin-card-header">
-                    <i class="fas fa-file-chart me-2"></i>Laporan Detail
-                </div>
-                <div style="padding: 1rem;">
-                    <div class="form-grid" style="margin-bottom: 1rem;">
-                        <div class="form-group">
-                            <label class="form-label">Periode</label>
-                            <select class="form-select" id="reportPeriod">
-                                <option value="today">Hari Ini</option>
-                                <option value="week">Minggu Ini</option>
-                                <option value="month">Bulan Ini</option>
-                                <option value="all">Semua Data</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Staff</label>
-                            <select class="form-select" id="reportStaff">
-                                <option value="all">Semua Staff</option>
-                                <option value="staff1">Staff 1</option>
-                                <option value="staff2">Staff 2</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <button class="form-btn primary" onclick="generateAdminReport()">
-                                <i class="fas fa-chart-bar me-1"></i>Generate
-                            </button>
-                            <button class="form-btn export" onclick="downloadAdminReport()">
-                                <i class="fas fa-download me-1"></i>Download
-                            </button>
-                        </div>
-                    </div>
-                    <div id="reportResults">
-                        <div style="text-align: center; padding: 3rem; color: #666;">
-                            <i class="fas fa-chart-bar" style="font-size: 3rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                            <h5>Pilih periode dan klik Generate</h5>
-                        </div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+                    <div class="stat-number" id="totalOrdersMonth">0</div>
+                    <div class="stat-label">Total Bulan Ini</div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Staff App -->
-    <div id="staffApp" class="page-section">
-        <div class="mobile-header">
-            <div class="mobile-header-content">
-                <h1>
-                    <i class="fas fa-tint me-2"></i>
-                    Pinewater
-                </h1>
-                <div class="user-info">
-                    <span id="staffUser">Staff</span>
-                    <button class="logout-btn" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i>
+    <!-- Order Section -->
+    <div id="orderSection" class="content-section">
+        <div class="mobile-card">
+            <div class="mobile-card-header">
+                <i class="fas fa-shopping-cart me-2"></i>Form Pesanan Gallon
+            </div>
+            <form id="orderForm" onsubmit="handleOrder(event)">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label class="form-label">Nama Pemesan</label>
+                        <input type="text" class="form-input" id="customerName" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">No. Telepon</label>
+                        <input type="tel" class="form-input" id="customerPhone" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jenis Paket</label>
+                        <select class="form-select" id="packageType" required onchange="calculateTotal()">
+                            <option value="">Pilih Paket</option>
+                            <option value="small" data-price="5000">1-50 Gallon - Rp 5.000/gallon</option>
+                            <option value="large" data-price="4500">&gt;50 Gallon - Rp 4.500/gallon</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Jumlah Gallon</label>
+                        <input type="number" class="form-input" id="gallonCount" min="1" required onchange="calculateTotal()">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Tanggal Pesanan</label>
+                        <input type="date" class="form-input" id="orderDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Total Pembayaran</label>
+                        <input type="text" class="form-input" id="totalPayment" readonly style="background-color: #f8f9fa; font-weight: bold; color: var(--primary-color);">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Alamat Pengiriman</label>
+                        <textarea class="form-input" id="deliveryAddress" rows="2"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Catatan (Opsional)</label>
+                        <textarea class="form-input" id="orderNotes" rows="2"></textarea>
+                    </div>
+                </div>
+                <div style="padding: 0 1rem 1rem;">
+                    <button type="submit" class="form-btn primary" id="submitBtn">
+                        <i class="fas fa-save me-1"></i>Simpan Pesanan
+                    </button>
+                    <button type="button" class="form-btn secondary" onclick="resetOrderForm()">
+                        <i class="fas fa-times me-1"></i>Reset
                     </button>
                 </div>
+            </form>
+        </div>
+
+        <div class="mobile-card">
+            <div style="padding: 1rem;">
+                <button class="form-btn primary" onclick="printLastOrder()">
+                    <i class="fas fa-print me-1"></i>Print Nota Terakhir
+                </button>
             </div>
         </div>
+    </div>
 
-        <div class="mobile-nav">
-            <button class="mobile-nav-item active" onclick="showStaffSection('attendance')">
-                <i class="fas fa-fingerprint me-1"></i>Absensi
-            </button>
-            <button class="mobile-nav-item" onclick="showStaffSection('order')">
-                <i class="fas fa-plus-circle me-1"></i>Pesanan Baru
-            </button>
-            <button class="mobile-nav-item" onclick="showStaffSection('history')">
-                <i class="fas fa-history me-1"></i>Riwayat
-            </button>
-            <button class="mobile-nav-item" onclick="showStaffSection('stats')">
-                <i class="fas fa-chart-bar me-1"></i>Statistik
-            </button>
-        </div>
-
-        <!-- Attendance Section for Staff -->
-        <div id="attendanceSection" class="content-section active">
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-calendar-check me-2"></i>Absensi Hari Ini
-                </div>
-                <div style="padding: 2rem;">
-                    <div style="text-align: center; margin-bottom: 2rem;">
-                        <div style="font-size: 3rem; color: var(--primary-color); margin-bottom: 1rem;">
-                            <i class="fas fa-clock"></i>
-                        </div>
-                        <div style="font-size: 2rem; font-weight: bold; color: var(--dark-blue);" id="currentTime">
-                            00:00:00
-                        </div>
-                        <div style="font-size: 1.2rem; color: #666; margin-top: 0.5rem;" id="currentDate">
-                            Loading...
-                        </div>
+    <!-- History Section -->
+    <div id="historySection" class="content-section">
+        <div class="mobile-card">
+            <div class="mobile-card-header">
+                <i class="fas fa-history me-2"></i>Riwayat Pesanan
+                <span class="firebase-badge float-end">
+                    <i class="fas fa-database"></i> Firebase
+                </span>
+            </div>
+            <div style="padding: 1rem;">
+                <div class="form-grid" style="margin-bottom: 1rem;">
+                    <div class="form-group">
+                        <label class="form-label">Filter Tanggal</label>
+                        <input type="date" class="form-input" id="filterDate" onchange="filterHistory()">
                     </div>
-
-                    <div id="attendanceStatusCard" style="background: #f8f9fa; padding: 1.5rem; border-radius: 12px; margin-bottom: 1.5rem; text-align: center;">
-                        <div style="font-size: 1.1rem; font-weight: 600; color: var(--dark-blue); margin-bottom: 0.5rem;">
-                            Status Absensi
-                        </div>
-                        <div id="attendanceStatusText" style="font-size: 1.5rem; font-weight: bold; color: #666;">
-                            Belum Absen
-                        </div>
-                        <div id="attendanceTimeInfo" style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                        </div>
-                    </div>
-
-                    <div style="display: grid; gap: 1rem;">
-                        <button class="form-btn primary" id="checkInBtn" onclick="checkIn()" style="padding: 1.2rem; font-size: 1.1rem;">
-                            <i class="fas fa-sign-in-alt me-2"></i>Check In
-                        </button>
-                        <button class="form-btn secondary" id="checkOutBtn" onclick="checkOut()" style="padding: 1.2rem; font-size: 1.1rem;" disabled>
-                            <i class="fas fa-sign-out-alt me-2"></i>Check Out
+                    <div class="form-group">
+                        <button class="form-btn primary" onclick="refreshHistory()">
+                            <i class="fas fa-refresh me-1"></i>Refresh
                         </button>
                     </div>
                 </div>
             </div>
-
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-history me-2"></i>Riwayat Absensi Saya
-                </div>
-                <div id="myAttendanceHistory" style="padding: 1rem; max-height: 50vh; overflow-y: auto;">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Memuat riwayat absensi...</p>
-                    </div>
+            <div id="orderHistoryList" style="max-height: 60vh; overflow-y: auto;">
+                <div class="loading">
+                    <div class="spinner"></div>
+                    <p>Memuat riwayat pesanan dari Firebase...</p>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-chart-bar me-2"></i>Statistik Kehadiran Bulan Ini
+    <!-- Stats Section -->
+    <div id="statsSection" class="content-section">
+        <div class="mobile-card">
+            <div class="mobile-card-header">
+                <i class="fas fa-chart-bar me-2"></i>Statistik Lengkap
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
+                    <div class="stat-number" id="statTodayOrders">0</div>
+                    <div class="stat-label">Pesanan Hari Ini</div>
                 </div>
-                <div class="stats-grid">
-                    <div class="stat-card primary">
-                        <div class="stat-icon"><i class="fas fa-calendar-check"></i></div>
-                        <div class="stat-number" id="myAttendanceDays">0</div>
-                        <div class="stat-label">Hari Hadir</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-icon"><i class="fas fa-clock"></i></div>
-                        <div class="stat-number" id="myTotalHours">0</div>
-                        <div class="stat-label">Total Jam Kerja</div>
-                    </div>
-                    <div class="stat-card dark">
-                        <div class="stat-icon"><i class="fas fa-hourglass-half"></i></div>
-                        <div class="stat-number" id="myAvgHours">0</div>
-                        <div class="stat-label">Rata-rata Jam/Hari</div>
-                    </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-box"></i></div>
+                    <div class="stat-number" id="statTodayGallons">0</div>
+                    <div class="stat-label">Gallon Hari Ini</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
+                    <div class="stat-number" id="statTodayRevenue">Rp 0</div>
+                    <div class="stat-label">Pendapatan Hari Ini</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon"><i class="fas fa-calendar"></i></div>
+                    <div class="stat-number" id="statMonthOrders">0</div>
+                    <div class="stat-label">Total Bulan Ini</div>
                 </div>
             </div>
         </div>
 
-        <!-- Order Section -->
-        <div id="orderSection" class="content-section active">
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-shopping-cart me-2"></i>Form Pesanan Gallon
-                </div>
-                <form id="orderForm" onsubmit="handleOrder(event)">
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label class="form-label">Nama Pemesan</label>
-                            <input type="text" class="form-input" id="customerName" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">No. Telepon</label>
-                            <input type="tel" class="form-input" id="customerPhone" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Jenis Paket</label>
-                            <select class="form-select" id="packageType" required onchange="calculateTotal()">
-                                <option value="">Pilih Paket</option>
-                                <option value="small" data-price="5000">1-50 Gallon - Rp 5.000/gallon</option>
-                                <option value="large" data-price="4500">&gt;50 Gallon - Rp 4.500/gallon</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Jumlah Gallon</label>
-                            <input type="number" class="form-input" id="gallonCount" min="1" required onchange="calculateTotal()">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Tanggal Pesanan</label>
-                            <input type="date" class="form-input" id="orderDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Total Pembayaran</label>
-                            <input type="text" class="form-input" id="totalPayment" readonly style="background-color: #f8f9fa; font-weight: bold; color: var(--primary-color);">
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Alamat Pengiriman</label>
-                            <textarea class="form-input" id="deliveryAddress" rows="2"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="form-label">Catatan (Opsional)</label>
-                            <textarea class="form-input" id="orderNotes" rows="2"></textarea>
-                        </div>
-                    </div>
-                    <div style="padding: 0 1rem 1rem;">
-                        <button type="submit" class="form-btn primary">
-                            <i class="fas fa-save me-1"></i>Simpan Pesanan
-                        </button>
-                        <button type="button" class="form-btn secondary" onclick="resetOrderForm()">
-                            <i class="fas fa-times me-1"></i>Reset
-                        </button>
-                    </div>
-                </form>
+        <div class="mobile-card">
+            <div class="mobile-card-header">
+                <i class="fas fa-chart-line me-2"></i>Ringkasan Bulanan
             </div>
-
-            <div class="mobile-card">
-                <div style="padding: 1rem;">
-                    <div class="form-grid">
-                        <button class="form-btn primary" onclick="printLastOrder()">
-                            <i class="fas fa-print me-1"></i>Print Nota Terakhir
-                        </button>
-                        <button class="form-btn secondary" onclick="showTodayStats()">
-                            <i class="fas fa-calendar-day me-1"></i>Ringkasan Hari Ini
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- History Section -->
-        <div id="historySection" class="content-section">
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-history me-2"></i>Riwayat Pesanan Saya
-                </div>
-                <div style="padding: 1rem;">
-                    <div class="form-grid" style="margin-bottom: 1rem;">
-                        <div class="form-group">
-                            <label class="form-label">Filter Tanggal</label>
-                            <input type="date" class="form-input" id="filterDate" onchange="filterHistory()">
-                        </div>
-                        <div class="form-group">
-                            <button class="form-btn primary" onclick="refreshHistory()">
-                                <i class="fas fa-refresh me-1"></i>Refresh
-                            </button>
-                        </div>
-                    </div>
-                </div>
-                <div id="orderHistoryList" style="max-height: 60vh; overflow-y: auto;">
-                    <div class="loading">
-                        <div class="spinner"></div>
-                        <p>Memuat riwayat pesanan...</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Stats Section -->
-        <div id="statsSection" class="content-section">
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-chart-bar me-2"></i>Statistik Saya
-                </div>
-                <div class="stats-grid">
-                    <div class="stat-card primary">
-                        <div class="stat-icon"><i class="fas fa-shopping-cart"></i></div>
-                        <div class="stat-number" id="myTodayOrders">0</div>
-                        <div class="stat-label">Pesanan Hari Ini</div>
-                    </div>
-                    <div class="stat-card accent">
-                        <div class="stat-icon"><i class="fas fa-box"></i></div>
-                        <div class="stat-number" id="myTodayGallons">0</div>
-                        <div class="stat-label">Gallon Hari Ini</div>
-                    </div>
-                    <div class="stat-card dark">
-                        <div class="stat-icon"><i class="fas fa-money-bill-wave"></i></div>
-                        <div class="stat-number" id="myTodayRevenue">Rp 0</div>
-                        <div class="stat-label">Pendapatan Hari Ini</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-icon"><i class="fas fa-calendar"></i></div>
-                        <div class="stat-number" id="myMonthOrders">0</div>
-                        <div class="stat-label">Total Bulan Ini</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="mobile-card">
-                <div class="mobile-card-header">
-                    <i class="fas fa-chart-line me-2"></i>Ringkasan Bulanan
-                </div>
-                <div style="padding: 1rem; overflow-x: auto;">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Paket</th>
-                                <th>Jumlah</th>
-                                <th>Total Gallon</th>
-                                <th>Pendapatan</th>
-                            </tr>
-                        </thead>
-                        <tbody id="myMonthlySummaryBody">
-                            <tr>
-                                <td colspan="4" style="text-align: center; padding: 2rem; color: #666;">
-                                    Memuat data...
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+            <div style="padding: 1rem; overflow-x: auto;">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Paket</th>
+                            <th>Jumlah</th>
+                            <th>Total Gallon</th>
+                            <th>Pendapatan</th>
+                        </tr>
+                    </thead>
+                    <tbody id="monthlySummaryBody">
+                        <tr>
+                            <td colspan="4" style="text-align: center; padding: 2rem; color: #666;">
+                                Memuat data...
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
@@ -1392,16 +557,16 @@
     <!-- Firebase SDK -->
     <script type="module">
         import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
-        import { getFirestore, collection, addDoc, getDocs, query, where, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+        import { getFirestore, collection, addDoc, getDocs, query, orderBy, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
 
         const firebaseConfig = {
-            apiKey: "AIzaSyAEyZF2Ib10UD7vv8l3nclb-KfChIczIz4",
-            authDomain: "pinewater-393fe.firebaseapp.com",
-            projectId: "pinewater-393fe",
-            storageBucket: "pinewater-393fe.firebasestorage.app",
-            messagingSenderId: "1039943692827",
-            appId: "1:1039943692827:web:014dd0b891143a8a95febe",
-            measurementId: "G-931M74XQQK"
+            apiKey: "AIzaSyCc0ZEaB6UYSjIdfvRqZD00mcWtqAveX7s",
+            authDomain: "pinewater-56d74.firebaseapp.com",
+            projectId: "pinewater-56d74",
+            storageBucket: "pinewater-56d74.firebasestorage.app",
+            messagingSenderId: "856154291689",
+            appId: "1:856154291689:web:dc25cbe499d908599d5f78",
+            measurementId: "G-PL6M48EH4Z"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -1412,627 +577,94 @@
         window.collection = collection;
         window.getDocs = getDocs;
         window.query = query;
-        window.where = where;
         window.orderBy = orderBy;
         window.serverTimestamp = serverTimestamp;
         
-        console.log('Firebase initialized successfully for Pinewater');
+        console.log('✅ Firebase initialized successfully for Pinewater');
+        updateSyncStatus('connected', 'Connected');
+        
+        // Load data on startup
+        loadDataFromFirebase();
     </script>
 
     <script>
-        let currentUser = null;
         let allOrdersData = [];
-        let myOrdersData = [];
         let orderCounter = 1;
-        let allAttendanceData = [];
-        let myAttendanceData = [];
-        let todayAttendance = null;
-        let clockInterval = null;
+        let isOnline = true;
 
-        const systemUsers = [
-            { id: '1', username: 'admin', password: 'pinewater123', role: 'admin', fullName: 'Admin Pinewater' },
-            { id: '2', username: 'staff1', password: 'staff123', role: 'staff', fullName: 'Staff 1' },
-            { id: '3', username: 'staff2', password: 'staff123', role: 'staff', fullName: 'Staff 2' }
-        ];
-
-        if (!localStorage.getItem('pinewater_users')) {
-            localStorage.setItem('pinewater_users', JSON.stringify(systemUsers));
-        }
-
-        function togglePassword() {
-            const passwordInput = document.getElementById('password');
-            const toggleIcon = document.getElementById('passwordToggleIcon');
+        function updateSyncStatus(status, text) {
+            const syncStatus = document.getElementById('syncStatus');
+            const syncText = document.getElementById('syncText');
             
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-                toggleIcon.className = 'fas fa-eye-slash';
-            } else {
-                passwordInput.type = 'password';
-                toggleIcon.className = 'fas fa-eye';
+            syncStatus.className = 'sync-status';
+            
+            if (status === 'connected') {
+                syncStatus.innerHTML = '<i class="fas fa-cloud-check"></i><span>Online</span>';
+                syncStatus.style.background = 'rgba(16, 185, 129, 0.3)';
+            } else if (status === 'syncing') {
+                syncStatus.classList.add('syncing');
+                syncStatus.innerHTML = '<i class="fas fa-sync fa-spin"></i><span>' + text + '</span>';
+                syncStatus.style.background = 'rgba(59, 130, 246, 0.3)';
+            } else if (status === 'error') {
+                syncStatus.innerHTML = '<i class="fas fa-cloud-exclamation"></i><span>Offline</span>';
+                syncStatus.style.background = 'rgba(239, 68, 68, 0.3)';
             }
         }
 
-        function handleLogin(event) {
-            event.preventDefault();
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
-            
-            const users = JSON.parse(localStorage.getItem('pinewater_users') || '[]');
-            const user = users.find(u => u.username === username && u.password === password);
-            
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('pinewater_current_user', JSON.stringify(user));
-                
-                showLoginAlert('Login berhasil! Selamat datang ' + user.fullName, 'success');
-                
-                setTimeout(() => {
-                    if (user.role === 'admin') {
-                        showAdminApp();
-                    } else {
-                        showStaffApp();
-                    }
-                }, 1000);
-            } else {
-                showLoginAlert('Username atau password salah!', 'danger');
-            }
-        }
-
-        function showLoginAlert(message, type) {
-            const alertContainer = document.getElementById('loginAlert');
-            alertContainer.innerHTML = `
-                <div class="alert alert-${type} mt-3" style="border-radius: 12px; border: none;">
-                    ${message}
-                </div>
-            `;
-            setTimeout(() => alertContainer.innerHTML = '', 4000);
-        }
-
-        async function showAdminApp() {
-            document.getElementById('loginPage').classList.remove('active');
-            document.getElementById('adminApp').classList.add('active');
-            document.getElementById('staffApp').classList.remove('active');
-            
-            document.getElementById('adminUser').textContent = currentUser.fullName;
-            
-            const today = new Date();
-            if (document.getElementById('filterDateStart')) {
-                document.getElementById('filterDateStart').valueAsDate = today;
-                document.getElementById('filterDateEnd').valueAsDate = today;
-            }
-            if (document.getElementById('filterAttendanceDateStart')) {
-                document.getElementById('filterAttendanceDateStart').valueAsDate = today;
-                document.getElementById('filterAttendanceDateEnd').valueAsDate = today;
-            }
-            
-            await loadAllOrdersData();
-            await loadAllAttendanceData();
-            updateAdminDashboard();
-        }
-
-        function showStaffApp() {
-            document.getElementById('loginPage').classList.remove('active');
-            document.getElementById('adminApp').classList.remove('active');
-            document.getElementById('staffApp').classList.add('active');
-            
-            document.getElementById('staffUser').textContent = currentUser.fullName;
-            
-            document.getElementById('orderDate').valueAsDate = new Date();
-            document.getElementById('filterDate').valueAsDate = new Date();
-            
-            loadMyOrdersData();
-            loadMyAttendanceData();
-            updateStaffStats();
-            startClock();
-            checkTodayAttendance();
-        }
-
-        function logout() {
-            if (confirm('Apakah Anda yakin ingin keluar?')) {
-                if (clockInterval) {
-                    clearInterval(clockInterval);
-                }
-                localStorage.removeItem('pinewater_current_user');
-                currentUser = null;
-                document.getElementById('adminApp').classList.remove('active');
-                document.getElementById('staffApp').classList.remove('active');
-                document.getElementById('loginPage').classList.add('active');
-                document.getElementById('loginForm').reset();
-                showAlert('Berhasil logout!', 'success');
-            }
-        }
-
-        function showAdminSection(section) {
-            document.querySelectorAll('#adminApp .content-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('#adminApp .mobile-nav-item').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(section + 'Section').classList.add('active');
-            event.target.classList.add('active');
-            
-            if (section === 'attendance') {
-                updateAdminAttendance();
-            } else if (section === 'monitoring') {
-                updateMonitoringTable();
-            } else if (section === 'comparison') {
-                updateComparisonSection();
-            }
-        }
-
-        function showStaffSection(section) {
-            document.querySelectorAll('#staffApp .content-section').forEach(el => el.classList.remove('active'));
-            document.querySelectorAll('#staffApp .mobile-nav-item').forEach(el => el.classList.remove('active'));
-            
-            document.getElementById(section + 'Section').classList.add('active');
-            event.target.classList.add('active');
-            
-            if (section === 'attendance') {
-                checkTodayAttendance();
-                loadMyAttendanceHistory();
-                updateMyAttendanceStats();
-            } else if (section === 'history') {
-                loadStaffHistory();
-            } else if (section === 'stats') {
-                updateStaffStats();
-                updateMyMonthlySummary();
-            }
-        }
-
-        async function loadAllOrdersData() {
+        async function loadDataFromFirebase() {
             try {
+                updateSyncStatus('syncing', 'Loading...');
+                
                 const q = window.query(window.collection(window.db, 'pesanan'), window.orderBy('timestamp', 'desc'));
                 const querySnapshot = await window.getDocs(q);
                 
                 allOrdersData = [];
                 querySnapshot.forEach((doc) => {
-                    allOrdersData.push({ id: doc.id, ...doc.data() });
+                    const data = doc.data();
+                    allOrdersData.push({ 
+                        id: doc.id, 
+                        ...data,
+                        timestamp: data.timestamp?.toDate() || new Date()
+                    });
                 });
                 
-                console.log('Loaded all orders:', allOrdersData.length);
+                console.log('✅ Loaded', allOrdersData.length, 'orders from Firebase');
+                updateSyncStatus('connected', 'Online');
+                isOnline = true;
                 
-            } catch (error) {
-                console.error('Error loading orders:', error);
-                const localData = localStorage.getItem('pinewater_all_orders');
-                if (localData) {
-                    allOrdersData = JSON.parse(localData);
-                }
-            }
-        }
-
-        async function loadMyOrdersData() {
-            try {
-                const q = window.query(
-                    window.collection(window.db, 'pesanan'),
-                    window.where('createdBy', '==', currentUser.username),
-                    window.orderBy('timestamp', 'desc')
-                );
-                const querySnapshot = await window.getDocs(q);
-                
-                myOrdersData = [];
-                querySnapshot.forEach((doc) => {
-                    myOrdersData.push({ id: doc.id, ...doc.data() });
-                });
-                
-                console.log('Loaded my orders:', myOrdersData.length);
+                // Update all displays
+                updateDashboard();
+                updateStats();
                 
             } catch (error) {
-                console.error('Error loading my orders:', error);
-                const localData = localStorage.getItem('pinewater_orders_' + currentUser.username);
-                if (localData) {
-                    myOrdersData = JSON.parse(localData);
-                }
-            }
-        }
-
-        function updateAdminDashboard() {
-            const today = new Date().toDateString();
-            
-            const todayOrders = allOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                return orderDate.toDateString() === today;
-            });
-            
-            const staff1TodayOrders = todayOrders.filter(o => o.createdBy === 'staff1');
-            const staff2TodayOrders = todayOrders.filter(o => o.createdBy === 'staff2');
-            
-            const totalOrders = todayOrders.length;
-            const totalGallons = todayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            const totalRevenue = todayOrders.reduce((sum, o) => sum + o.total, 0);
-            
-            document.getElementById('totalOrdersToday').textContent = totalOrders;
-            document.getElementById('totalGallonsToday').textContent = totalGallons;
-            document.getElementById('totalRevenueToday').textContent = 'Rp ' + totalRevenue.toLocaleString('id-ID');
-            
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            const monthOrders = allOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
-            });
-            
-            document.getElementById('totalOrdersMonth').textContent = monthOrders.length;
-            
-            const staff1MonthOrders = monthOrders.filter(o => o.createdBy === 'staff1');
-            const staff2MonthOrders = monthOrders.filter(o => o.createdBy === 'staff2');
-            
-            document.getElementById('staff1OrdersToday').textContent = staff1TodayOrders.length;
-            document.getElementById('staff1GallonsToday').textContent = staff1TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('staff1RevenueToday').textContent = 'Rp ' + staff1TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            document.getElementById('staff1OrdersMonth').textContent = staff1MonthOrders.length;
-            document.getElementById('staff1GallonsMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('staff1RevenueMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            document.getElementById('staff2OrdersToday').textContent = staff2TodayOrders.length;
-            document.getElementById('staff2GallonsToday').textContent = staff2TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('staff2RevenueToday').textContent = 'Rp ' + staff2TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            document.getElementById('staff2OrdersMonth').textContent = staff2MonthOrders.length;
-            document.getElementById('staff2GallonsMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('staff2RevenueMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            const staff1LastOrder = staff1TodayOrders.length > 0 ? staff1TodayOrders[0] : null;
-            const staff2LastOrder = staff2TodayOrders.length > 0 ? staff2TodayOrders[0] : null;
-            
-            const now = new Date();
-            const fourHoursAgo = new Date(now.getTime() - 4 * 60 * 60 * 1000);
-            
-            document.getElementById('staff1Status').textContent = (staff1LastOrder && new Date(staff1LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'Aktif' : 'Offline';
-            document.getElementById('staff1Status').className = (staff1LastOrder && new Date(staff1LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'staff-status active' : 'staff-status offline';
-            
-            document.getElementById('staff2Status').textContent = (staff2LastOrder && new Date(staff2LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'Aktif' : 'Offline';
-            document.getElementById('staff2Status').className = (staff2LastOrder && new Date(staff2LastOrder.timestamp?.seconds * 1000) > fourHoursAgo) ? 'staff-status active' : 'staff-status offline';
-        }
-
-        function updateMonitoringTable() {
-            const tbody = document.getElementById('monitoringTableBody');
-            
-            if (allOrdersData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" style="text-align: center; padding: 2rem; color: #666;">
-                            Belum ada data pesanan
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-
-            let html = '';
-            allOrdersData.forEach(order => {
-                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                const staffClass = order.createdBy === 'staff1' ? 'staff1' : 'staff2';
-                const staffName = order.createdBy === 'staff1' ? 'Staff 1' : 'Staff 2';
+                console.error('❌ Error loading from Firebase:', error);
+                updateSyncStatus('error', 'Offline');
+                isOnline = false;
                 
-                html += `
-                    <tr>
-                        <td style="font-family: monospace; font-weight: bold;">${order.nomorPesanan}</td>
-                        <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
-                        <td>${order.namaPemesan}</td>
-                        <td>${order.noTelepon}</td>
-                        <td style="text-align: center; font-weight: bold;">${order.jumlahGallon}</td>
-                        <td style="font-size: 0.85rem;">${order.jenisPaket}</td>
-                        <td style="font-weight: bold; color: var(--primary-color);">Rp ${order.total.toLocaleString('id-ID')}</td>
-                        <td style="font-size: 0.85rem;">${date.toLocaleDateString('id-ID')}</td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = html;
-        }
-
-        function applyMonitoringFilter() {
-            const staffFilter = document.getElementById('filterStaff').value;
-            const startDate = document.getElementById('filterDateStart').value;
-            const endDate = document.getElementById('filterDateEnd').value;
-            
-            let filteredData = [...allOrdersData];
-            
-            if (staffFilter) {
-                filteredData = filteredData.filter(order => order.createdBy === staffFilter);
-            }
-            
-            if (startDate) {
-                const start = new Date(startDate);
-                filteredData = filteredData.filter(order => {
-                    const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                    return orderDate >= start;
-                });
-            }
-            
-            if (endDate) {
-                const end = new Date(endDate);
-                end.setHours(23, 59, 59, 999);
-                filteredData = filteredData.filter(order => {
-                    const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                    return orderDate <= end;
-                });
-            }
-            
-            const tbody = document.getElementById('monitoringTableBody');
-            if (filteredData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="8" style="text-align: center; padding: 2rem; color: #666;">
-                            Tidak ada data dengan filter yang dipilih
-                        </td>
-                    </tr>
-                `;
-            } else {
-                let html = '';
-                filteredData.forEach(order => {
-                    const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                    const staffClass = order.createdBy === 'staff1' ? 'staff1' : 'staff2';
-                    const staffName = order.createdBy === 'staff1' ? 'Staff 1' : 'Staff 2';
-                    
-                    html += `
-                        <tr>
-                            <td style="font-family: monospace; font-weight: bold;">${order.nomorPesanan}</td>
-                            <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
-                            <td>${order.namaPemesan}</td>
-                            <td>${order.noTelepon}</td>
-                            <td style="text-align: center; font-weight: bold;">${order.jumlahGallon}</td>
-                            <td style="font-size: 0.85rem;">${order.jenisPaket}</td>
-                            <td style="font-weight: bold; color: var(--primary-color);">Rp ${order.total.toLocaleString('id-ID')}</td>
-                            <td style="font-size: 0.85rem;">${date.toLocaleDateString('id-ID')}</td>
-                        </tr>
-                    `;
-                });
-                tbody.innerHTML = html;
-            }
-            
-            showAlert(`Filter diterapkan. Menampilkan ${filteredData.length} data.`, 'success');
-        }
-
-        function clearMonitoringFilter() {
-            document.getElementById('filterStaff').value = '';
-            document.getElementById('filterDateStart').value = '';
-            document.getElementById('filterDateEnd').value = '';
-            updateMonitoringTable();
-            showAlert('Filter direset.', 'info');
-        }
-
-        function exportMonitoringData() {
-            let csv = 'No Pesanan,Staff,Customer,Telepon,Gallon,Paket,Total,Tanggal\n';
-            
-            allOrdersData.forEach(order => {
-                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                const staffName = order.createdBy === 'staff1' ? 'Staff 1' : 'Staff 2';
-                csv += `"${order.nomorPesanan}","${staffName}","${order.namaPemesan}","${order.noTelepon}",${order.jumlahGallon},"${order.jenisPaket}",${order.total},"${date.toLocaleDateString('id-ID')}"\n`;
-            });
-            
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `pinewater-data-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showAlert('Data berhasil diexport!', 'success');
-        }
-
-        function updateComparisonSection() {
-            const today = new Date().toDateString();
-            const todayOrders = allOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                return orderDate.toDateString() === today;
-            });
-            
-            const staff1TodayOrders = todayOrders.filter(o => o.createdBy === 'staff1');
-            const staff2TodayOrders = todayOrders.filter(o => o.createdBy === 'staff2');
-            
-            document.getElementById('compStaff1OrdersToday').textContent = staff1TodayOrders.length;
-            document.getElementById('compStaff1GallonsToday').textContent = staff1TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('compStaff1RevenueToday').textContent = staff1TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            document.getElementById('compStaff2OrdersToday').textContent = staff2TodayOrders.length;
-            document.getElementById('compStaff2GallonsToday').textContent = staff2TodayOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('compStaff2RevenueToday').textContent = staff2TodayOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            const monthOrders = allOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
-            });
-            
-            const staff1MonthOrders = monthOrders.filter(o => o.createdBy === 'staff1');
-            const staff2MonthOrders = monthOrders.filter(o => o.createdBy === 'staff2');
-            
-            document.getElementById('compStaff1OrdersMonth').textContent = staff1MonthOrders.length;
-            document.getElementById('compStaff1GallonsMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('compStaff1RevenueMonth').textContent = staff1MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            document.getElementById('compStaff2OrdersMonth').textContent = staff2MonthOrders.length;
-            document.getElementById('compStaff2GallonsMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            document.getElementById('compStaff2RevenueMonth').textContent = staff2MonthOrders.reduce((sum, o) => sum + o.total, 0).toLocaleString('id-ID');
-            
-            const analysisDiv = document.getElementById('performanceAnalysis');
-            
-            const staff1Total = staff1MonthOrders.reduce((sum, o) => sum + o.total, 0);
-            const staff2Total = staff2MonthOrders.reduce((sum, o) => sum + o.total, 0);
-            const totalRevenue = staff1Total + staff2Total;
-            
-            const staff1Percentage = totalRevenue > 0 ? ((staff1Total / totalRevenue) * 100).toFixed(1) : 0;
-            const staff2Percentage = totalRevenue > 0 ? ((staff2Total / totalRevenue) * 100).toFixed(1) : 0;
-            
-            const leader = staff1Total > staff2Total ? 'Staff 1' : (staff2Total > staff1Total ? 'Staff 2' : 'Seimbang');
-            
-            analysisDiv.innerHTML = `
-                <div style="padding: 1rem;">
-                    <h6 style="color: var(--dark-blue); font-weight: bold; margin-bottom: 1rem;">
-                        Analisis Performa Bulan Ini
-                    </h6>
-                    
-                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                        <strong>Kontribusi Pendapatan:</strong><br>
-                        <div style="margin-top: 0.5rem;">
-                            Staff 1: <strong style="color: var(--staff1-color);">${staff1Percentage}%</strong><br>
-                            Staff 2: <strong style="color: var(--staff2-color);">${staff2Percentage}%</strong>
-                        </div>
-                    </div>
-                    
-                    <div style="background: #f8f9fa; padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-                        <strong>Rata-rata per Pesanan:</strong><br>
-                        <div style="margin-top: 0.5rem;">
-                            Staff 1: Rp ${staff1MonthOrders.length > 0 ? Math.round(staff1Total / staff1MonthOrders.length).toLocaleString('id-ID') : 0}<br>
-                            Staff 2: Rp ${staff2MonthOrders.length > 0 ? Math.round(staff2Total / staff2MonthOrders.length).toLocaleString('id-ID') : 0}
-                        </div>
-                    </div>
-                    
-                    <div style="background: ${leader === 'Staff 1' ? 'rgba(5, 150, 105, 0.1)' : leader === 'Staff 2' ? 'rgba(124, 58, 237, 0.1)' : '#f0f0f0'}; padding: 1rem; border-radius: 8px; border-left: 4px solid ${leader === 'Staff 1' ? 'var(--staff1-color)' : leader === 'Staff 2' ? 'var(--staff2-color)' : '#999'};">
-                        <i class="fas fa-trophy me-2" style="color: #fbbf24;"></i>
-                        <strong>Performa Terbaik:</strong> ${leader}
-                    </div>
-                </div>
-            `;
-        }
-
-        function generateAdminReport() {
-            const period = document.getElementById('reportPeriod').value;
-            const staffFilter = document.getElementById('reportStaff').value;
-            
-            let filteredOrders = [...allOrdersData];
-            
-            if (staffFilter !== 'all') {
-                filteredOrders = filteredOrders.filter(o => o.createdBy === staffFilter);
-            }
-            
-            const today = new Date();
-            if (period === 'today') {
-                filteredOrders = filteredOrders.filter(o => {
-                    const orderDate = o.timestamp instanceof Date ? o.timestamp : new Date(o.timestamp?.seconds * 1000);
-                    return orderDate.toDateString() === today.toDateString();
-                });
-            } else if (period === 'week') {
-                const weekAgo = new Date(today.getTime() - 7 * 24 * 60 * 60 * 1000);
-                filteredOrders = filteredOrders.filter(o => {
-                    const orderDate = o.timestamp instanceof Date ? o.timestamp : new Date(o.timestamp?.seconds * 1000);
-                    return orderDate >= weekAgo;
-                });
-            } else if (period === 'month') {
-                filteredOrders = filteredOrders.filter(o => {
-                    const orderDate = o.timestamp instanceof Date ? o.timestamp : new Date(o.timestamp?.seconds * 1000);
-                    return orderDate.getMonth() === today.getMonth() && orderDate.getFullYear() === today.getFullYear();
-                });
-            }
-            
-            const totalOrders = filteredOrders.length;
-            const totalGallons = filteredOrders.reduce((sum, o) => sum + o.jumlahGallon, 0);
-            const totalRevenue = filteredOrders.reduce((sum, o) => sum + o.total, 0);
-            
-            const packageStats = {};
-            filteredOrders.forEach(order => {
-                const pkg = order.jenisPaket;
-                if (!packageStats[pkg]) {
-                    packageStats[pkg] = { count: 0, gallons: 0, revenue: 0 };
+                // Load from localStorage as fallback
+                const savedOrders = localStorage.getItem('pinewater_orders');
+                if (savedOrders) {
+                    allOrdersData = JSON.parse(savedOrders);
+                    console.log('📦 Loaded from localStorage:', allOrdersData.length, 'orders');
                 }
-                packageStats[pkg].count++;
-                packageStats[pkg].gallons += order.jumlahGallon;
-                packageStats[pkg].revenue += order.total;
-            });
-            
-            const reportDiv = document.getElementById('reportResults');
-            
-            let html = `
-                <div style="background: white; padding: 2rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);">
-                    <div style="text-align: center; margin-bottom: 2rem; border-bottom: 2px solid #eee; padding-bottom: 1rem;">
-                        <h4 style="color: var(--primary-color); margin-bottom: 0.5rem;">
-                            Laporan Pinewater
-                        </h4>
-                        <p style="color: #666;">
-                            Periode: ${period === 'today' ? 'Hari Ini' : period === 'week' ? 'Minggu Ini' : period === 'month' ? 'Bulan Ini' : 'Semua Data'}<br>
-                            Staff: ${staffFilter === 'all' ? 'Semua Staff' : staffFilter === 'staff1' ? 'Staff 1' : 'Staff 2'}
-                        </p>
-                    </div>
-
-                    <div class="stats-grid" style="margin-bottom: 2rem;">
-                        <div class="stat-card primary">
-                            <div class="stat-number">${totalOrders}</div>
-                            <div class="stat-label">Total Pesanan</div>
-                        </div>
-                        <div class="stat-card accent">
-                            <div class="stat-number">${totalGallons}</div>
-                            <div class="stat-label">Total Gallon</div>
-                        </div>
-                        <div class="stat-card dark">
-                            <div class="stat-number">Rp ${totalRevenue.toLocaleString('id-ID')}</div>
-                            <div class="stat-label">Total Pendapatan</div>
-                        </div>
-                    </div>
-
-                    <div style="margin-bottom: 2rem;">
-                        <h5 style="color: var(--primary-color); margin-bottom: 1rem;">
-                            Detail Per Paket
-                        </h5>
-                        <table class="data-table">
-                            <thead>
-                                <tr>
-                                    <th>Paket</th>
-                                    <th>Jumlah</th>
-                                    <th>Total Gallon</th>
-                                    <th>Pendapatan</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-            `;
-            
-            Object.entries(packageStats).forEach(([pkg, stats]) => {
-                html += `
-                    <tr>
-                        <td><strong>${pkg}</strong></td>
-                        <td>${stats.count}</td>
-                        <td>${stats.gallons}</td>
-                        <td style="font-weight: bold; color: var(--primary-color);">Rp ${stats.revenue.toLocaleString('id-ID')}</td>
-                    </tr>
-                `;
-            });
-            
-            html += `
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div style="text-align: center; color: #666; font-size: 0.9rem; border-top: 1px solid #eee; padding-top: 1rem;">
-                        Dibuat pada: ${new Date().toLocaleString('id-ID')}
-                    </div>
-                </div>
-            `;
-            
-            reportDiv.innerHTML = html;
-            showAlert('Laporan berhasil dibuat!', 'success');
+            }
         }
 
-        function downloadAdminReport() {
-            const reportContent = document.getElementById('reportResults').innerHTML;
-            if (reportContent.includes('Pilih periode')) {
-                showAlert('Generate report terlebih dahulu!', 'danger');
-                return;
+        function showSection(section) {
+            document.querySelectorAll('.content-section').forEach(el => el.classList.remove('active'));
+            document.querySelectorAll('.mobile-nav-item').forEach(el => el.classList.remove('active'));
+            
+            document.getElementById(section + 'Section').classList.add('active');
+            event.target.classList.add('active');
+            
+            if (section === 'history') {
+                loadHistory();
+            } else if (section === 'stats') {
+                updateStats();
+                updateMonthlySummary();
+            } else if (section === 'dashboard') {
+                updateDashboard();
             }
-            
-            const printWindow = window.open('', '_blank');
-            printWindow.document.write(`
-                <html>
-                    <head>
-                        <title>Laporan Pinewater</title>
-                        <style>
-                            body { font-family: Arial, sans-serif; margin: 2rem; }
-                            table { width: 100%; border-collapse: collapse; margin-bottom: 2rem; }
-                            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-                            th { background-color: #f2f2f2; }
-                            .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 2rem 0; }
-                            .stat-card { border: 1px solid #ddd; padding: 1rem; text-align: center; }
-                        </style>
-                    </head>
-                    <body>
-                        ${reportContent}
-                    </body>
-                </html>
-            `);
-            printWindow.document.close();
-            printWindow.print();
-            
-            showAlert('Dialog print dibuka!', 'info');
         }
 
         function calculateTotal() {
@@ -2056,18 +688,16 @@
             return `PW-${dateStr}-${timeStr}-${String(orderCounter++).padStart(3, '0')}`;
         }
 
-        function calculateTotalAmount() {
-            const packageType = document.getElementById('packageType').value;
-            const gallonCount = parseInt(document.getElementById('gallonCount').value) || 0;
-            const price = packageType === 'small' ? 5000 : 4500;
-            return price * gallonCount;
-        }
-
         async function handleOrder(event) {
             event.preventDefault();
             
+            const submitBtn = document.getElementById('submitBtn');
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin me-1"></i>Menyimpan...';
+            
             const packageType = document.getElementById('packageType').value;
             const gallonCount = parseInt(document.getElementById('gallonCount').value);
+            const price = packageType === 'small' ? 5000 : 4500;
             
             const orderData = {
                 nomorPesanan: generateOrderNumber(),
@@ -2075,37 +705,46 @@
                 noTelepon: document.getElementById('customerPhone').value,
                 jenisPaket: packageType === 'small' ? '1-50 Gallon' : '>50 Gallon',
                 jumlahGallon: gallonCount,
-                hargaSatuan: packageType === 'small' ? 5000 : 4500,
+                hargaSatuan: price,
                 tanggalPesanan: document.getElementById('orderDate').value,
                 alamatPengiriman: document.getElementById('deliveryAddress').value,
                 catatan: document.getElementById('orderNotes').value,
-                petugasInput: currentUser.fullName,
-                createdBy: currentUser.username,
                 timestamp: window.serverTimestamp(),
-                total: calculateTotalAmount(),
-                status: 'Selesai'
+                total: price * gallonCount
             };
 
             try {
-                await window.addDoc(window.collection(window.db, 'pesanan'), orderData);
+                updateSyncStatus('syncing', 'Saving...');
                 
+                // Save to Firebase
+                const docRef = await window.addDoc(window.collection(window.db, 'pesanan'), orderData);
+                console.log('✅ Order saved to Firebase with ID:', docRef.id);
+                
+                // Add to local array with actual timestamp
                 orderData.timestamp = new Date();
-                myOrdersData.unshift(orderData);
+                orderData.id = docRef.id;
+                allOrdersData.unshift(orderData);
                 
-                localStorage.setItem('pinewater_orders_' + currentUser.username, JSON.stringify(myOrdersData));
+                // Save to localStorage as backup
+                localStorage.setItem('pinewater_orders', JSON.stringify(allOrdersData));
                 
-                showAlert('Pesanan berhasil disimpan! Nomor: ' + orderData.nomorPesanan, 'success');
+                updateSyncStatus('connected', 'Saved');
+                showAlert('✅ Pesanan berhasil disimpan ke Firebase! Nomor: ' + orderData.nomorPesanan, 'success');
                 
                 resetOrderForm();
-                updateStaffStats();
+                updateDashboard();
                 
                 if (confirm('Apakah Anda ingin mencetak nota sekarang?')) {
                     printOrder(orderData);
                 }
                 
             } catch (error) {
-                console.error('Error saving order:', error);
-                showAlert('Gagal menyimpan pesanan: ' + error.message, 'danger');
+                console.error('❌ Error saving order:', error);
+                updateSyncStatus('error', 'Error');
+                showAlert('❌ Gagal menyimpan ke Firebase: ' + error.message, 'danger');
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-save me-1"></i>Simpan Pesanan';
             }
         }
 
@@ -2142,7 +781,6 @@
                             <div class="info"><strong>Harga/Gallon:</strong> Rp ${orderData.hargaSatuan.toLocaleString('id-ID')}</div>
                             <div class="info"><strong>Tanggal:</strong> ${orderData.tanggalPesanan}</div>
                             ${orderData.alamatPengiriman ? `<div class="info"><strong>Alamat:</strong> ${orderData.alamatPengiriman}</div>` : ''}
-                            <div class="info"><strong>Petugas:</strong> ${orderData.petugasInput}</div>
                             <div class="total">TOTAL: Rp ${orderData.total.toLocaleString('id-ID')}</div>
                             <div class="footer">
                                 Terima kasih atas kepercayaan Anda!<br>
@@ -2157,31 +795,17 @@
         }
 
         function printLastOrder() {
-            if (myOrdersData.length > 0) {
-                printOrder(myOrdersData[0]);
+            if (allOrdersData.length > 0) {
+                printOrder(allOrdersData[0]);
             } else {
                 showAlert('Belum ada pesanan yang dibuat', 'warning');
             }
         }
 
-        function showTodayStats() {
-            const today = new Date().toDateString();
-            const todayOrders = myOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
-                return orderDate.toDateString() === today;
-            });
-            
-            const todayTotal = todayOrders.length;
-            const todayGallons = todayOrders.reduce((sum, order) => sum + order.jumlahGallon, 0);
-            const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
-            
-            alert(`Ringkasan Hari Ini:\n\nTotal Pesanan: ${todayTotal}\nTotal Gallon: ${todayGallons}\nTotal Pendapatan: Rp ${todayRevenue.toLocaleString('id-ID')}`);
-        }
-
-        function loadStaffHistory() {
+        function loadHistory() {
             const historyList = document.getElementById('orderHistoryList');
             
-            if (myOrdersData.length === 0) {
+            if (allOrdersData.length === 0) {
                 historyList.innerHTML = `
                     <div style="text-align: center; padding: 2rem; color: #666;">
                         <i class="fas fa-inbox" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
@@ -2192,18 +816,17 @@
             }
 
             let html = '';
-            myOrdersData.forEach(order => {
-                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+            allOrdersData.forEach(order => {
+                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
                 html += `
                     <div class="order-item">
                         <div class="order-header">
                             <div class="order-number">${order.nomorPesanan}</div>
-                            <div class="order-status">${order.status || 'Selesai'}</div>
                         </div>
                         <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
                             <strong>${order.namaPemesan}</strong> - ${order.noTelepon}<br>
                             ${order.jumlahGallon} gallon (${order.jenisPaket}) - Rp ${order.total.toLocaleString('id-ID')}<br>
-                            <small>${date.toLocaleDateString('id-ID')} ${date.toLocaleTimeString('id-ID')}</small>
+                            <small><i class="fas fa-clock"></i> ${date.toLocaleDateString('id-ID')} ${date.toLocaleTimeString('id-ID')}</small>
                         </div>
                     </div>
                 `;
@@ -2212,23 +835,23 @@
             historyList.innerHTML = html;
         }
 
-        function refreshHistory() {
-            loadMyOrdersData().then(() => {
-                loadStaffHistory();
-                showAlert('Riwayat berhasil diperbarui', 'success');
-            });
+        async function refreshHistory() {
+            updateSyncStatus('syncing', 'Refreshing...');
+            await loadDataFromFirebase();
+            loadHistory();
+            showAlert('✅ Riwayat berhasil diperbarui dari Firebase', 'success');
         }
 
         function filterHistory() {
             const filterDate = document.getElementById('filterDate').value;
             if (!filterDate) {
-                loadStaffHistory();
+                loadHistory();
                 return;
             }
             
             const selectedDate = new Date(filterDate).toDateString();
-            const filteredOrders = myOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+            const filteredOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
                 return orderDate.toDateString() === selectedDate;
             });
             
@@ -2246,12 +869,11 @@
 
             let html = '';
             filteredOrders.forEach(order => {
-                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+                const date = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
                 html += `
                     <div class="order-item">
                         <div class="order-header">
                             <div class="order-number">${order.nomorPesanan}</div>
-                            <div class="order-status">${order.status || 'Selesai'}</div>
                         </div>
                         <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
                             <strong>${order.namaPemesan}</strong> - ${order.noTelepon}<br>
@@ -2265,10 +887,10 @@
             historyList.innerHTML = html;
         }
 
-        function updateStaffStats() {
+        function updateDashboard() {
             const today = new Date().toDateString();
-            const todayOrders = myOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+            const todayOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
                 return orderDate.toDateString() === today;
             });
             
@@ -2278,26 +900,46 @@
             
             const currentMonth = new Date().getMonth();
             const currentYear = new Date().getFullYear();
-            const monthOrders = myOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+            const monthOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
                 return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
             });
             
-            const monthTotal = monthOrders.length;
-            
-            if (document.getElementById('myTodayOrders')) {
-                document.getElementById('myTodayOrders').textContent = todayTotal;
-                document.getElementById('myTodayGallons').textContent = todayGallons;
-                document.getElementById('myTodayRevenue').textContent = 'Rp ' + todayRevenue.toLocaleString('id-ID');
-                document.getElementById('myMonthOrders').textContent = monthTotal;
-            }
+            document.getElementById('totalOrdersToday').textContent = todayTotal;
+            document.getElementById('totalGallonsToday').textContent = todayGallons;
+            document.getElementById('totalRevenueToday').textContent = 'Rp ' + todayRevenue.toLocaleString('id-ID');
+            document.getElementById('totalOrdersMonth').textContent = monthOrders.length;
         }
 
-        function updateMyMonthlySummary() {
+        function updateStats() {
+            const today = new Date().toDateString();
+            const todayOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
+                return orderDate.toDateString() === today;
+            });
+            
+            const todayTotal = todayOrders.length;
+            const todayGallons = todayOrders.reduce((sum, order) => sum + order.jumlahGallon, 0);
+            const todayRevenue = todayOrders.reduce((sum, order) => sum + order.total, 0);
+            
             const currentMonth = new Date().getMonth();
             const currentYear = new Date().getFullYear();
-            const monthOrders = myOrdersData.filter(order => {
-                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp?.seconds * 1000);
+            const monthOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
+                return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
+            });
+            
+            document.getElementById('statTodayOrders').textContent = todayTotal;
+            document.getElementById('statTodayGallons').textContent = todayGallons;
+            document.getElementById('statTodayRevenue').textContent = 'Rp ' + todayRevenue.toLocaleString('id-ID');
+            document.getElementById('statMonthOrders').textContent = monthOrders.length;
+        }
+
+        function updateMonthlySummary() {
+            const currentMonth = new Date().getMonth();
+            const currentYear = new Date().getFullYear();
+            const monthOrders = allOrdersData.filter(order => {
+                const orderDate = order.timestamp instanceof Date ? order.timestamp : new Date(order.timestamp);
                 return orderDate.getMonth() === currentMonth && orderDate.getFullYear() === currentYear;
             });
             
@@ -2313,7 +955,7 @@
                 summary[packageKey].revenue += order.total;
             });
             
-            const tbody = document.getElementById('myMonthlySummaryBody');
+            const tbody = document.getElementById('monthlySummaryBody');
             
             if (monthOrders.length === 0) {
                 tbody.innerHTML = `
@@ -2351,525 +993,7 @@
             tbody.innerHTML = html;
         }
 
-        // ========== ATTENDANCE FUNCTIONS ==========
-        
-        async function loadAllAttendanceData() {
-            try {
-                const q = window.query(window.collection(window.db, 'absensi'), window.orderBy('timestamp', 'desc'));
-                const querySnapshot = await window.getDocs(q);
-                
-                allAttendanceData = [];
-                querySnapshot.forEach((doc) => {
-                    allAttendanceData.push({ id: doc.id, ...doc.data() });
-                });
-                
-                console.log('Loaded all attendance:', allAttendanceData.length);
-                
-            } catch (error) {
-                console.error('Error loading attendance:', error);
-                const localData = localStorage.getItem('pinewater_all_attendance');
-                if (localData) {
-                    allAttendanceData = JSON.parse(localData);
-                }
-            }
-        }
-
-        async function loadMyAttendanceData() {
-            try {
-                const q = window.query(
-                    window.collection(window.db, 'absensi'),
-                    window.where('username', '==', currentUser.username),
-                    window.orderBy('timestamp', 'desc')
-                );
-                const querySnapshot = await window.getDocs(q);
-                
-                myAttendanceData = [];
-                querySnapshot.forEach((doc) => {
-                    myAttendanceData.push({ id: doc.id, ...doc.data() });
-                });
-                
-                console.log('Loaded my attendance:', myAttendanceData.length);
-                
-            } catch (error) {
-                console.error('Error loading my attendance:', error);
-                const localData = localStorage.getItem('pinewater_attendance_' + currentUser.username);
-                if (localData) {
-                    myAttendanceData = JSON.parse(localData);
-                }
-            }
-        }
-
-        function startClock() {
-            if (clockInterval) clearInterval(clockInterval);
-            
-            function updateClock() {
-                const now = new Date();
-                const timeString = now.toLocaleTimeString('id-ID');
-                const dateString = now.toLocaleDateString('id-ID', { 
-                    weekday: 'long', 
-                    year: 'numeric', 
-                    month: 'long', 
-                    day: 'numeric' 
-                });
-                
-                if (document.getElementById('currentTime')) {
-                    document.getElementById('currentTime').textContent = timeString;
-                    document.getElementById('currentDate').textContent = dateString;
-                }
-            }
-            
-            updateClock();
-            clockInterval = setInterval(updateClock, 1000);
-        }
-
-        function checkTodayAttendance() {
-            const today = new Date().toDateString();
-            todayAttendance = myAttendanceData.find(att => {
-                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                return attDate.toDateString() === today;
-            });
-            
-            const statusCard = document.getElementById('attendanceStatusCard');
-            const statusText = document.getElementById('attendanceStatusText');
-            const timeInfo = document.getElementById('attendanceTimeInfo');
-            const checkInBtn = document.getElementById('checkInBtn');
-            const checkOutBtn = document.getElementById('checkOutBtn');
-            
-            if (todayAttendance) {
-                if (todayAttendance.checkOut) {
-                    statusCard.style.background = 'linear-gradient(135deg, #fee2e2 0%, #fecaca 100%)';
-                    statusText.textContent = 'Sudah Check Out';
-                    statusText.style.color = '#991b1b';
-                    
-                    const checkInTime = new Date(todayAttendance.checkIn);
-                    const checkOutTime = new Date(todayAttendance.checkOut);
-                    const hours = ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1);
-                    
-                    timeInfo.innerHTML = `
-                        Check In: ${checkInTime.toLocaleTimeString('id-ID')}<br>
-                        Check Out: ${checkOutTime.toLocaleTimeString('id-ID')}<br>
-                        Total: ${hours} jam
-                    `;
-                    
-                    checkInBtn.disabled = true;
-                    checkOutBtn.disabled = true;
-                } else {
-                    statusCard.style.background = 'linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%)';
-                    statusText.textContent = 'Sudah Check In';
-                    statusText.style.color = '#065f46';
-                    
-                    const checkInTime = new Date(todayAttendance.checkIn);
-                    timeInfo.innerHTML = `Check In: ${checkInTime.toLocaleTimeString('id-ID')}`;
-                    
-                    checkInBtn.disabled = true;
-                    checkOutBtn.disabled = false;
-                }
-            } else {
-                statusCard.style.background = '#f8f9fa';
-                statusText.textContent = 'Belum Absen';
-                statusText.style.color = '#666';
-                timeInfo.innerHTML = '';
-                
-                checkInBtn.disabled = false;
-                checkOutBtn.disabled = true;
-            }
-        }
-
-        async function checkIn() {
-            if (todayAttendance) {
-                showAlert('Anda sudah check in hari ini!', 'warning');
-                return;
-            }
-            
-            if (!confirm('Konfirmasi Check In sekarang?')) return;
-            
-            const attendanceData = {
-                username: currentUser.username,
-                fullName: currentUser.fullName,
-                checkIn: new Date().toISOString(),
-                checkOut: null,
-                timestamp: window.serverTimestamp(),
-                date: new Date().toDateString()
-            };
-            
-            try {
-                await window.addDoc(window.collection(window.db, 'absensi'), attendanceData);
-                
-                attendanceData.timestamp = new Date();
-                myAttendanceData.unshift(attendanceData);
-                todayAttendance = attendanceData;
-                
-                localStorage.setItem('pinewater_attendance_' + currentUser.username, JSON.stringify(myAttendanceData));
-                
-                showAlert('Check In berhasil!', 'success');
-                checkTodayAttendance();
-                loadMyAttendanceHistory();
-                
-            } catch (error) {
-                console.error('Error check in:', error);
-                showAlert('Gagal check in: ' + error.message, 'danger');
-            }
-        }
-
-        async function checkOut() {
-            if (!todayAttendance || todayAttendance.checkOut) {
-                showAlert('Anda belum check in atau sudah check out!', 'warning');
-                return;
-            }
-            
-            if (!confirm('Konfirmasi Check Out sekarang?')) return;
-            
-            try {
-                const checkOutTime = new Date().toISOString();
-                
-                // Update di Firebase jika ada id
-                if (todayAttendance.id) {
-                    await window.updateDoc(
-                        window.doc(window.db, 'absensi', todayAttendance.id),
-                        { checkOut: checkOutTime }
-                    );
-                }
-                
-                // Update lokal
-                todayAttendance.checkOut = checkOutTime;
-                const index = myAttendanceData.findIndex(a => a.date === todayAttendance.date);
-                if (index !== -1) {
-                    myAttendanceData[index] = todayAttendance;
-                }
-                
-                localStorage.setItem('pinewater_attendance_' + currentUser.username, JSON.stringify(myAttendanceData));
-                
-                showAlert('Check Out berhasil!', 'success');
-                checkTodayAttendance();
-                loadMyAttendanceHistory();
-                updateMyAttendanceStats();
-                
-            } catch (error) {
-                console.error('Error check out:', error);
-                showAlert('Gagal check out: ' + error.message, 'danger');
-            }
-        }
-
-        function loadMyAttendanceHistory() {
-            const container = document.getElementById('myAttendanceHistory');
-            
-            if (myAttendanceData.length === 0) {
-                container.innerHTML = `
-                    <div style="text-align: center; padding: 2rem; color: #666;">
-                        <i class="fas fa-calendar-times" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i>
-                        <p>Belum ada riwayat absensi</p>
-                    </div>
-                `;
-                return;
-            }
-            
-            let html = '';
-            myAttendanceData.slice(0, 10).forEach(att => {
-                const checkInTime = new Date(att.checkIn);
-                const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
-                const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
-                
-                const statusClass = att.checkOut ? 'success' : 'warning';
-                const statusText = att.checkOut ? 'Lengkap' : 'Belum Check Out';
-                
-                html += `
-                    <div class="order-item">
-                        <div class="order-header">
-                            <div style="font-weight: bold; color: var(--dark-blue);">
-                                ${checkInTime.toLocaleDateString('id-ID')}
-                            </div>
-                            <div class="order-status" style="background: ${statusClass === 'success' ? '#d1fae5' : '#fef3c7'}; color: ${statusClass === 'success' ? '#065f46' : '#92400e'};">
-                                ${statusText}
-                            </div>
-                        </div>
-                        <div style="font-size: 0.9rem; color: #666; margin-top: 0.5rem;">
-                            <strong>Check In:</strong> ${checkInTime.toLocaleTimeString('id-ID')}<br>
-                            <strong>Check Out:</strong> ${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}<br>
-                            <strong>Total Jam:</strong> ${hours} jam
-                        </div>
-                    </div>
-                `;
-            });
-            
-            container.innerHTML = html;
-        }
-
-        function updateMyAttendanceStats() {
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            
-            const monthAttendance = myAttendanceData.filter(att => {
-                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                return attDate.getMonth() === currentMonth && attDate.getFullYear() === currentYear;
-            });
-            
-            const completedDays = monthAttendance.filter(att => att.checkOut).length;
-            
-            let totalHours = 0;
-            monthAttendance.forEach(att => {
-                if (att.checkOut) {
-                    const checkIn = new Date(att.checkIn);
-                    const checkOut = new Date(att.checkOut);
-                    totalHours += (checkOut - checkIn) / (1000 * 60 * 60);
-                }
-            });
-            
-            const avgHours = completedDays > 0 ? (totalHours / completedDays).toFixed(1) : 0;
-            
-            if (document.getElementById('myAttendanceDays')) {
-                document.getElementById('myAttendanceDays').textContent = completedDays;
-                document.getElementById('myTotalHours').textContent = totalHours.toFixed(1);
-                document.getElementById('myAvgHours').textContent = avgHours;
-            }
-        }
-
-        function updateAdminAttendance() {
-            const today = new Date().toDateString();
-            
-            const staff1Today = allAttendanceData.find(att => {
-                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                return att.username === 'staff1' && attDate.toDateString() === today;
-            });
-            
-            const staff2Today = allAttendanceData.find(att => {
-                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                return att.username === 'staff2' && attDate.toDateString() === today;
-            });
-            
-            // Update Staff 1 status
-            if (staff1Today) {
-                if (staff1Today.checkOut) {
-                    document.getElementById('staff1AttendanceStatus').textContent = 'Check Out';
-                    document.getElementById('staff1AttendanceStatus').style.color = '#991b1b';
-                    const hours = ((new Date(staff1Today.checkOut) - new Date(staff1Today.checkIn)) / (1000 * 60 * 60)).toFixed(1);
-                    document.getElementById('staff1CheckInTime').textContent = `${hours} jam`;
-                    document.getElementById('staff1WorkHours').textContent = hours;
-                } else {
-                    document.getElementById('staff1AttendanceStatus').textContent = 'Check In';
-                    document.getElementById('staff1AttendanceStatus').style.color = '#065f46';
-                    const checkInTime = new Date(staff1Today.checkIn);
-                    document.getElementById('staff1CheckInTime').textContent = checkInTime.toLocaleTimeString('id-ID');
-                    const hours = ((new Date() - checkInTime) / (1000 * 60 * 60)).toFixed(1);
-                    document.getElementById('staff1WorkHours').textContent = hours;
-                }
-            } else {
-                document.getElementById('staff1AttendanceStatus').textContent = 'Belum Absen';
-                document.getElementById('staff1AttendanceStatus').style.color = '#666';
-                document.getElementById('staff1CheckInTime').textContent = '-';
-                document.getElementById('staff1WorkHours').textContent = '0';
-            }
-            
-            // Update Staff 2 status
-            if (staff2Today) {
-                if (staff2Today.checkOut) {
-                    document.getElementById('staff2AttendanceStatus').textContent = 'Check Out';
-                    document.getElementById('staff2AttendanceStatus').style.color = '#991b1b';
-                    const hours = ((new Date(staff2Today.checkOut) - new Date(staff2Today.checkIn)) / (1000 * 60 * 60)).toFixed(1);
-                    document.getElementById('staff2CheckInTime').textContent = `${hours} jam`;
-                    document.getElementById('staff2WorkHours').textContent = hours;
-                } else {
-                    document.getElementById('staff2AttendanceStatus').textContent = 'Check In';
-                    document.getElementById('staff2AttendanceStatus').style.color = '#065f46';
-                    const checkInTime = new Date(staff2Today.checkIn);
-                    document.getElementById('staff2CheckInTime').textContent = checkInTime.toLocaleTimeString('id-ID');
-                    const hours = ((new Date() - checkInTime) / (1000 * 60 * 60)).toFixed(1);
-                    document.getElementById('staff2WorkHours').textContent = hours;
-                }
-            } else {
-                document.getElementById('staff2AttendanceStatus').textContent = 'Belum Absen';
-                document.getElementById('staff2AttendanceStatus').style.color = '#666';
-                document.getElementById('staff2CheckInTime').textContent = '-';
-                document.getElementById('staff2WorkHours').textContent = '0';
-            }
-            
-            // Update monthly stats
-            const currentMonth = new Date().getMonth();
-            const currentYear = new Date().getFullYear();
-            
-            const staff1Month = allAttendanceData.filter(att => {
-                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                return att.username === 'staff1' && attDate.getMonth() === currentMonth && attDate.getFullYear() === currentYear;
-            });
-            
-            const staff2Month = allAttendanceData.filter(att => {
-                const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                return att.username === 'staff2' && attDate.getMonth() === currentMonth && attDate.getFullYear() === currentYear;
-            });
-            
-            const staff1Days = staff1Month.filter(att => att.checkOut).length;
-            const staff2Days = staff2Month.filter(att => att.checkOut).length;
-            
-            let staff1TotalHours = 0;
-            staff1Month.forEach(att => {
-                if (att.checkOut) {
-                    staff1TotalHours += (new Date(att.checkOut) - new Date(att.checkIn)) / (1000 * 60 * 60);
-                }
-            });
-            
-            let staff2TotalHours = 0;
-            staff2Month.forEach(att => {
-                if (att.checkOut) {
-                    staff2TotalHours += (new Date(att.checkOut) - new Date(att.checkIn)) / (1000 * 60 * 60);
-                }
-            });
-            
-            document.getElementById('staff1AttendanceDays').textContent = staff1Days;
-            document.getElementById('staff2AttendanceDays').textContent = staff2Days;
-            document.getElementById('staff1AvgHours').textContent = staff1Days > 0 ? (staff1TotalHours / staff1Days).toFixed(1) : '0';
-            document.getElementById('staff2AvgHours').textContent = staff2Days > 0 ? (staff2TotalHours / staff2Days).toFixed(1) : '0';
-            
-            // Update attendance table
-            updateAttendanceTable();
-        }
-
-        function updateAttendanceTable() {
-            const tbody = document.getElementById('attendanceTableBody');
-            
-            if (allAttendanceData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
-                            Belum ada data absensi
-                        </td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            let html = '';
-            allAttendanceData.forEach(att => {
-                const date = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                const checkInTime = new Date(att.checkIn);
-                const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
-                const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
-                
-                const staffClass = att.username === 'staff1' ? 'staff1' : 'staff2';
-                const staffName = att.username === 'staff1' ? 'Staff 1' : 'Staff 2';
-                const statusBadge = att.checkOut 
-                    ? '<span style="background: #d1fae5; color: #065f46; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Lengkap</span>'
-                    : '<span style="background: #fef3c7; color: #92400e; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Belum Check Out</span>';
-                
-                html += `
-                    <tr>
-                        <td>${date.toLocaleDateString('id-ID')}</td>
-                        <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
-                        <td>${checkInTime.toLocaleTimeString('id-ID')}</td>
-                        <td>${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}</td>
-                        <td style="font-weight: bold; color: var(--primary-color);">${hours} jam</td>
-                        <td>${statusBadge}</td>
-                    </tr>
-                `;
-            });
-            
-            tbody.innerHTML = html;
-        }
-
-        function applyAttendanceFilter() {
-            const staffFilter = document.getElementById('filterAttendanceStaff').value;
-            const startDate = document.getElementById('filterAttendanceDateStart').value;
-            const endDate = document.getElementById('filterAttendanceDateEnd').value;
-            
-            let filteredData = [...allAttendanceData];
-            
-            if (staffFilter) {
-                filteredData = filteredData.filter(att => att.username === staffFilter);
-            }
-            
-            if (startDate) {
-                const start = new Date(startDate);
-                filteredData = filteredData.filter(att => {
-                    const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                    return attDate >= start;
-                });
-            }
-            
-            if (endDate) {
-                const end = new Date(endDate);
-                end.setHours(23, 59, 59, 999);
-                filteredData = filteredData.filter(att => {
-                    const attDate = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                    return attDate <= end;
-                });
-            }
-            
-            const tbody = document.getElementById('attendanceTableBody');
-            if (filteredData.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" style="text-align: center; padding: 2rem; color: #666;">
-                            Tidak ada data dengan filter yang dipilih
-                        </td>
-                    </tr>
-                `;
-            } else {
-                let html = '';
-                filteredData.forEach(att => {
-                    const date = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                    const checkInTime = new Date(att.checkIn);
-                    const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
-                    const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
-                    
-                    const staffClass = att.username === 'staff1' ? 'staff1' : 'staff2';
-                    const staffName = att.username === 'staff1' ? 'Staff 1' : 'Staff 2';
-                    const statusBadge = att.checkOut 
-                        ? '<span style="background: #d1fae5; color: #065f46; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Lengkap</span>'
-                        : '<span style="background: #fef3c7; color: #92400e; padding: 0.25rem 0.5rem; border-radius: 12px; font-size: 0.8rem;">Belum Check Out</span>';
-                    
-                    html += `
-                        <tr>
-                            <td>${date.toLocaleDateString('id-ID')}</td>
-                            <td><span class="staff-badge ${staffClass}">${staffName}</span></td>
-                            <td>${checkInTime.toLocaleTimeString('id-ID')}</td>
-                            <td>${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}</td>
-                            <td style="font-weight: bold; color: var(--primary-color);">${hours} jam</td>
-                            <td>${statusBadge}</td>
-                        </tr>
-                    `;
-                });
-                tbody.innerHTML = html;
-            }
-            
-            showAlert(`Filter diterapkan. Menampilkan ${filteredData.length} data.`, 'success');
-        }
-
-        function clearAttendanceFilter() {
-            document.getElementById('filterAttendanceStaff').value = '';
-            document.getElementById('filterAttendanceDateStart').value = '';
-            document.getElementById('filterAttendanceDateEnd').value = '';
-            updateAttendanceTable();
-            showAlert('Filter direset.', 'info');
-        }
-
-        function exportAttendanceData() {
-            let csv = 'Tanggal,Staff,Check In,Check Out,Total Jam,Status\n';
-            
-            allAttendanceData.forEach(att => {
-                const date = att.timestamp instanceof Date ? att.timestamp : new Date(att.timestamp?.seconds * 1000);
-                const checkInTime = new Date(att.checkIn);
-                const checkOutTime = att.checkOut ? new Date(att.checkOut) : null;
-                const hours = checkOutTime ? ((checkOutTime - checkInTime) / (1000 * 60 * 60)).toFixed(1) : '-';
-                const staffName = att.username === 'staff1' ? 'Staff 1' : 'Staff 2';
-                const status = att.checkOut ? 'Lengkap' : 'Belum Check Out';
-                
-                csv += `"${date.toLocaleDateString('id-ID')}","${staffName}","${checkInTime.toLocaleTimeString('id-ID')}","${checkOutTime ? checkOutTime.toLocaleTimeString('id-ID') : '-'}","${hours}","${status}"\n`;
-            });
-            
-            const blob = new Blob([csv], { type: 'text/csv' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `pinewater-absensi-${new Date().toISOString().split('T')[0]}.csv`;
-            a.click();
-            URL.revokeObjectURL(url);
-            
-            showAlert('Data absensi berhasil diexport!', 'success');
-        }
-
         function showAlert(message, type = 'success') {
-            document.querySelectorAll('.alert').forEach(el => {
-                if (!el.closest('#loginAlert')) el.remove();
-            });
-            
             const alertDiv = document.createElement('div');
             alertDiv.className = `alert alert-${type}`;
             alertDiv.style.cssText = `
@@ -2882,75 +1006,37 @@
                 max-width: 90%;
                 border-radius: 12px;
                 border: none;
-                animation: slideDown 0.5s ease-out;
                 padding: 1rem 1.5rem;
                 box-shadow: 0 4px 12px rgba(0,0,0,0.15);
             `;
             
-            let iconClass = 'check-circle';
             let bgColor = '#d1fae5';
             let textColor = '#065f46';
             
             if (type === 'danger') {
-                iconClass = 'exclamation-triangle';
                 bgColor = '#fee2e2';
                 textColor = '#991b1b';
             } else if (type === 'warning') {
-                iconClass = 'exclamation-circle';
                 bgColor = '#fef3c7';
                 textColor = '#92400e';
-            } else if (type === 'info') {
-                iconClass = 'info-circle';
-                bgColor = '#dbeafe';
-                textColor = '#1e40af';
             }
             
             alertDiv.style.backgroundColor = bgColor;
             alertDiv.style.color = textColor;
-            
-            alertDiv.innerHTML = `
-                <div style="display: flex; align-items: center; justify-content: space-between;">
-                    <span><i class="fas fa-${iconClass} me-2"></i>${message}</span>
-                    <button type="button" style="background: none; border: none; color: ${textColor}; cursor: pointer; padding: 0; margin-left: 1rem;" onclick="this.parentElement.parentElement.remove()">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-            `;
+            alertDiv.textContent = message;
             
             document.body.appendChild(alertDiv);
             
             setTimeout(() => {
                 if (alertDiv.parentNode) alertDiv.remove();
-            }, 5000);
-        }
-
-        function checkAuth() {
-            const savedUser = localStorage.getItem('pinewater_current_user');
-            if (savedUser) {
-                currentUser = JSON.parse(savedUser);
-                console.log('Resuming session for:', currentUser.username);
-                if (currentUser.role === 'admin') {
-                    showAdminApp();
-                } else {
-                    showStaffApp();
-                }
-            }
+            }, 4000);
         }
 
         window.addEventListener('load', function() {
-            console.log('Pinewater Management System loaded');
-            checkAuth();
+            console.log('🚀 Pinewater Management System with Firebase loaded');
+            document.getElementById('orderDate').valueAsDate = new Date();
+            document.getElementById('filterDate').valueAsDate = new Date();
         });
-
-        window.addEventListener('error', function(e) {
-            console.error('Global error:', e.error);
-        });
-
-        console.log('Pinewater JavaScript initialized');
-        console.log('Default users:');
-        console.log('- admin/pinewater123 (Admin)');
-        console.log('- staff1/staff123 (Staff 1)');
-        console.log('- staff2/staff123 (Staff 2)');
     </script>
 </body>
 </html>
